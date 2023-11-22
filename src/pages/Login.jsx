@@ -17,16 +17,15 @@ import { auth } from "../firebaseConfig";
 import CustomSnackbar from "../components/CustomSnackBar";
 
 const StyledLink = styled(NavLink)({
-    fontSize: "18px",
     textDecoration: "none",
-    color: "#707070",
+    color: "rgb(41, 98, 255)",
     marginLeft: "10px",
-    borderBottom: "1px solid transparent",
+    borderBottom: "1px solid rgba(41, 98, 255, 0.2)",
     "&:hover": {
-        borderColor: "#707070",
+        borderColor: "rgb(41, 98, 255)",
     },
     "&.active": {
-        borderColor: "#707070",
+        borderColor: "rgb(41, 98, 255)",
     },
 });
 
@@ -83,33 +82,33 @@ export default function Login() {
                 flexDirection: "column",
                 alignContent: "center",
                 justifyContent: "space-evenly",
-                height: "100%",
-                pt: 10,
-                gap: "15px",
-                maxWidth: "600px",
+                p: 4,
+                maxWidth: "480px",
             }}
         >
-            <Typography variant="h3" sx={{ textAlign: "center" }}>
+            <Typography variant="h4" color="secondary">
                 Вхід
+            </Typography>
+            <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
+                Email
             </Typography>
             <TextField
                 variant="outlined"
                 type="email"
                 id={`email-${id}`}
-                placeholder="Електронна пошта"
                 value={email}
                 autoComplete="email"
-                sx={{ borderBottom: "1px solid #000" }}
                 onChange={(event) => setEmail(event.target.value)}
             />
+            <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
+                Пароль
+            </Typography>
             <TextField
                 type={showPassword ? "text" : "password"}
                 id={`password-${id}`}
-                placeholder="Пароль"
                 value={password}
                 variant="outlined"
                 autoComplete="current-password"
-                sx={{ borderBottom: "1px solid #000" }}
                 onChange={(event) => setPassword(event.target.value)}
                 InputProps={{
                     endAdornment: (
@@ -126,12 +125,16 @@ export default function Login() {
                     ),
                 }}
             />
-            <Button variant="outlined" type="submit">
+            <Button variant="outlined" type="submit" sx={{ mt: 4, mb: 4 }}>
                 Увійти
             </Button>
-            <Typography variant="body1" sx={{ textAlign: "center" }}>
-                Немає аккаунту?
-                <StyledLink to="/register">Зареєструватись</StyledLink>
+            <Typography
+                variant="body1"
+                fontSize={20}
+                sx={{ textAlign: "center" }}
+            >
+                Немає акаунту?
+                <StyledLink to="/register">Зареєструватися</StyledLink>
             </Typography>
             <CustomSnackbar
                 open={showSnackBar}

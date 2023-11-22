@@ -7,7 +7,7 @@ const theme = createTheme({
     },
     palette: {
         primary: {
-            main: "#fff",
+            main: "#707070",
         },
         secondary: {
             main: "#000",
@@ -37,6 +37,13 @@ const theme = createTheme({
                 },
             },
         },
+        MuiAppBar: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "#fff",
+                },
+            },
+        },
         MuiList: {
             styleOverrides: {
                 root: {
@@ -60,10 +67,13 @@ const theme = createTheme({
                     props: { variant: "outlined" },
                     style: {
                         border: "1px solid #000",
+                        borderRadius: "12px",
                         color: "#000",
                         "&:hover": {
-                            boxShadow: "0 1px 2px 1px #555",
+                            color: "#fff",
+                            backgroundColor: "#000",
                         },
+                        padding: "12px 16px",
                     },
                 },
                 {
@@ -75,14 +85,16 @@ const theme = createTheme({
         MuiOutlinedInput: {
             styleOverrides: {
                 root: {
-                    borderRadius: "0px",
+                    borderRadius: "12px",
                     color: "#000",
                 },
                 notchedOutline: {
                     border: "none",
                 },
                 input: {
-                    padding: "8px",
+                    padding: "12px 16px",
+                    border: "1px solid #000",
+                    borderRadius: "12px",
                 },
                 adornedEnd: { padding: 0 },
             },

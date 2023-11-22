@@ -18,16 +18,15 @@ import { auth } from "../firebaseConfig";
 import CustomSnackbar from "../components/CustomSnackBar";
 
 const StyledLink = styled(NavLink)({
-    fontSize: "18px",
     textDecoration: "none",
-    color: "#707070",
+    color: "rgb(41, 98, 255)",
     marginLeft: "10px",
-    borderBottom: "1px solid transparent",
+    borderBottom: "1px solid rgba(41, 98, 255, 0.2)",
     "&:hover": {
-        borderColor: "#707070",
+        borderColor: "rgb(41, 98, 255)",
     },
     "&.active": {
-        borderColor: "#707070",
+        borderColor: "rgb(41, 98, 255)",
     },
 });
 
@@ -89,38 +88,35 @@ export default function Register() {
                 flexDirection: "column",
                 alignContent: "center",
                 justifyContent: "space-evenly",
-                height: "100%",
-                pt: 10,
-                gap: "15px",
-                maxWidth: "600px",
+                p: 4,
+                maxWidth: "480px",
             }}
         >
-            <Typography
-                variant="h3"
-                color="secondary"
-                sx={{ textAlign: "center" }}
-            >
+            <Typography variant="h4" color="secondary">
                 Реєстрація
+            </Typography>
+            <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
+                Вкажи пошту
             </Typography>
             <TextField
                 type="email"
-                placeholder="Електронна пошта"
                 variant="outlined"
                 value={email}
                 autoComplete="email"
-                sx={{ borderBottom: "1px solid #000" }}
                 onChange={(event) => setEmail(event.target.value)}
             />
+            <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
+                Придумай пароль
+            </Typography>
             <TextField
                 type={showPassword ? "text" : "password"}
-                placeholder="Пароль"
+                // helperText="Please enter your password"
                 variant="outlined"
                 value={password}
                 autoComplete="current-password"
-                sx={{ borderBottom: "1px solid #000" }}
                 onChange={(event) => setPassword(event.target.value)}
                 InputProps={{
-                    endAdornment: (
+                    endAdornment: React.cloneElement(
                         <IconButton
                             aria-label="toggle password visibility"
                             onClick={() => setShowPassword(!showPassword)}
@@ -130,15 +126,32 @@ export default function Register() {
                             ) : (
                                 <VisibilityOffIcon color="secondary" />
                             )}
-                        </IconButton>
+                        </IconButton>,
+                        {
+                            // Add the style you want to the IconButton
+                            style: {
+                                // margin: 0, // override the default margin
+                                // padding: 0, // override the default padding
+                                // width: '24px', // set a fixed width
+                                // height: '24px', // set a fixed height
+                                // position: 'absolute', // fix the position
+                                // top: '50%', // center vertically
+                                // left: '50%', // center horizontally
+                                // transform: 'translate(-50%, -50%)' // translate to the center
+                            },
+                        }
                     ),
                 }}
             />
-            <Button color="secondary" variant="outlined" type="submit">
-                Зареєструватись
+            <Button variant="outlined" type="submit" sx={{ mt: 4, mb: 4 }}>
+                Зареєструватися
             </Button>
-            <Typography variant="body1" sx={{ textAlign: "center" }}>
-                Є аккаунт? <StyledLink to="/login">Увійти</StyledLink>
+            <Typography
+                variant="body1"
+                fontSize={20}
+                sx={{ textAlign: "center" }}
+            >
+                Вже маєте акаунт? <StyledLink to="/login">Увійти</StyledLink>
             </Typography>
             <CustomSnackbar
                 open={showSnackBar}
