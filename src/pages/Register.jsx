@@ -32,6 +32,7 @@ const StyledLink = styled(NavLink)({
 
 export default function Register() {
     const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const [titleText, setTitleText] = useState("");
@@ -53,7 +54,11 @@ export default function Register() {
                 email,
                 password
             );
-            const data = { email: response.user.email, uid: response.user.uid };
+            const data = {
+                email: response.user.email,
+                uid: response.user.uid,
+                name: username,
+            };
             await createUser(data);
 
             setTitleText("Вітаємо");
@@ -96,6 +101,16 @@ export default function Register() {
                 Реєстрація
             </Typography>
             <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
+                Вкажи Імʼя
+            </Typography>
+            <TextField
+                type="text"
+                variant="outlined"
+                value={username}
+                autoComplete="name"
+                onChange={(event) => setUsername(event.target.value)}
+            />
+            <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
                 Вкажи пошту
             </Typography>
             <TextField
@@ -126,20 +141,7 @@ export default function Register() {
                             ) : (
                                 <VisibilityOffIcon color="secondary" />
                             )}
-                        </IconButton>,
-                        {
-                            // Add the style you want to the IconButton
-                            style: {
-                                // margin: 0, // override the default margin
-                                // padding: 0, // override the default padding
-                                // width: '24px', // set a fixed width
-                                // height: '24px', // set a fixed height
-                                // position: 'absolute', // fix the position
-                                // top: '50%', // center vertically
-                                // left: '50%', // center horizontally
-                                // transform: 'translate(-50%, -50%)' // translate to the center
-                            },
-                        }
+                        </IconButton>
                     ),
                 }}
             />

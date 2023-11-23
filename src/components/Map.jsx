@@ -22,12 +22,12 @@ function Map() {
                 language: "uk",
             }}
             defaultCenter={{
-                lat: 50.4689726,
-                lng: 30.5090174,
+                lat: 50.46900145771578,
+                lng: 30.50905436812287,
             }}
             defaultZoom={17}
         >
-            <LocationPin lat={50.4689726} lng={30.5090174} />
+            <LocationPin lat={50.46900145771578} lng={30.50905436812287} />
         </GoogleMapReact>
     );
 }

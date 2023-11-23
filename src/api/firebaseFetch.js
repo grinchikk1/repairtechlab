@@ -14,8 +14,10 @@ import { db } from "../firebaseConfig";
 export const createUser = async (data) => {
     try {
         const response = await setDoc(doc(db, "User", `${data.email}`), {
-            data,
-            date: Timestamp.now(),
+            data: {
+                ...data,
+                date: Timestamp.now(),
+            },
         });
         return response;
     } catch (error) {
