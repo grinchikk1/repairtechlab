@@ -38,48 +38,47 @@ export default function MakeAnAppointment() {
                 flexDirection: "column",
                 alignContent: "center",
                 justifyContent: "space-evenly",
-                height: "100%",
-                pt: 10,
-                pr: 1,
-                pl: 1,
-                gap: "15px",
+                p: 4,
                 maxWidth: "480px",
             }}
         >
-            <Typography variant="h3" sx={{ textAlign: "center" }}>
+            <Typography variant="h4" color="secondary" fontWeight="bold">
                 Напишіть нам
+            </Typography>
+            <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
+                Вкажіть Імʼя
             </Typography>
             <TextField
                 variant="outlined"
-                type="text"
+                type="tel"
                 id="username"
-                placeholder="Ім'я користувача"
                 value={username}
                 autoComplete="username"
-                sx={{ borderBottom: "1px solid #000" }}
                 onChange={(event) => setUsername(event.target.value)}
             />
+            <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
+                Номер телефону
+            </Typography>
             <TextField
                 type="text"
                 id="phone"
-                placeholder="Телефон"
                 value={phone}
                 variant="outlined"
                 autoComplete="phone"
-                sx={{ borderBottom: "1px solid #000" }}
                 onChange={(event) => setPhone(event.target.value)}
             />
+            <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
+                Повідомлення
+            </Typography>
             <TextField
                 type="text"
                 id="text"
-                placeholder="Введіть текст"
                 value={textField}
                 variant="outlined"
                 autoComplete="text"
-                sx={{ borderBottom: "1px solid #000" }}
                 onChange={(event) => setTextField(event.target.value)}
             />
-            <Button variant="outlined" onClick={handleAddData} type="submit">
+            <Button variant="outlined" type="submit" sx={{ mt: 4, mb: 4 }}>
                 Відправити
             </Button>
             <CustomSnackbar

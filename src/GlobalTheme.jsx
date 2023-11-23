@@ -87,13 +87,16 @@ const theme = createTheme({
                 root: {
                     borderRadius: "12px",
                     color: "#000",
+                    border: "1px solid #000",
+                    "&:hover": {
+                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                    },
                 },
                 notchedOutline: {
                     border: "none",
                 },
                 input: {
                     padding: "12px 16px",
-                    border: "1px solid #000",
                     borderRadius: "12px",
                 },
                 adornedEnd: { padding: 0 },

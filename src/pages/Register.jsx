@@ -92,7 +92,7 @@ export default function Register() {
                 maxWidth: "480px",
             }}
         >
-            <Typography variant="h4" color="secondary">
+            <Typography variant="h4" color="secondary" fontWeight="bold">
                 Реєстрація
             </Typography>
             <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>

@@ -18,20 +18,14 @@ export default function Admin() {
 
     return (
         <Container
-            disableGutters
             sx={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                p: 5,
-                gap: "15px",
+                p: 4,
             }}
         >
-            <Typography
-                color="secondary"
-                variant="h5"
-                sx={{ fontSize: { xs: 20, sm: 24, md: 28 } }}
-            >
+            <Typography color="secondary" variant="h4" sx={{ pb: 4 }}>
                 Адміністративна сторінка
             </Typography>
             <Button variant="outlined" onClick={handleSignOut} type="button">

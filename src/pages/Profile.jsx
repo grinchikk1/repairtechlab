@@ -62,16 +62,14 @@ export default function Profile() {
 
     return (
         <Container
-            disableGutters
             sx={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                p: 4,
             }}
         >
-            <Typography variant="h5" sx={{ pt: 2 }}>
-                Профіль користувача
-            </Typography>
+            <Typography variant="h4">Профіль користувача</Typography>
             <Paper
                 elevation={6}
                 sx={{
@@ -97,12 +95,12 @@ export default function Profile() {
                     <Box>
                         <Typography variant="h6">Username</Typography>
                         <Typography variant="h7">
+                            Email
                             {/* {user && user.email} */}
                         </Typography>
                     </Box>
                 </Box>
                 <Button
-                    color="secondary"
                     variant="outlined"
                     disableElevation
                     onClick={handleUpdateProfile}
@@ -122,7 +120,7 @@ export default function Profile() {
                             <ListItemIcon>
                                 <AdminPanelSettingsIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Панель Адміністратор" />
+                            <ListItemText primary="Панель Адміністратора" />
                         </ListItemButton>
                     </ListItem>
                 )}
@@ -131,7 +129,7 @@ export default function Profile() {
                         <ListItemIcon>
                             <ChatIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Чат" />
+                        <ListItemText primary="Чат (в розробці)" />
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>

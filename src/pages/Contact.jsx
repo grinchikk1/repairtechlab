@@ -4,29 +4,38 @@ import Map from "../components/Map";
 
 export default function Contact() {
     return (
-        <Container sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography color="secondary" variant="h3" sx={{ pt: 3 }}>
-                Контакти
-            </Typography>
-            <Typography variant="h5" sx={{ pt: 2 }}>
-                Телефон: +380739809080
-            </Typography>
-            <Typography variant="h5" sx={{ pt: 1 }}>
-                Email: repairtechlab@gmail.com
-            </Typography>
-            <Typography variant="h5" sx={{ pt: 1, pb: 2 }}>
-                Адреса: м.Київ, вул.Костянтинівська 32, офіс 7
-            </Typography>
+        <Box sx={{ p: 4, display: "inline-block" }}>
+            <Container
+                disableGutters
+                sx={{ display: "flex", flexDirection: "column" }}
+            >
+                <Typography
+                    color="secondary"
+                    variant="h4"
+                    fontWeight="bold"
+                    sx={{ pt: 3 }}
+                >
+                    Контакти
+                </Typography>
+                <Typography variant="h6" sx={{ pt: 2 }}>
+                    Телефон: <b>+38 073 980 90 80</b>
+                </Typography>
+                <Typography variant="h6" sx={{ pt: 1 }}>
+                    Email: <b>repairtechlab@gmail.com</b>
+                </Typography>
+                <Typography variant="h6" sx={{ pt: 1, pb: 2 }}>
+                    Адреса: <b>м.Київ, вул.Костянтинівська 32, офіс 7</b>
+                </Typography>
+            </Container>
             <Box
                 sx={{
                     height: "40vh",
-                    maxWidth: "600px",
                     borderRadius: "4px",
                     overflow: "hidden",
                 }}
             >
                 <Map />
             </Box>
-        </Container>
+        </Box>
     );
 }
