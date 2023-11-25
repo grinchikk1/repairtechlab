@@ -90,7 +90,7 @@ export default function Login() {
                 Вхід
             </Typography>
             <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
-                Email
+                Пошта
             </Typography>
             <TextField
                 variant="outlined"

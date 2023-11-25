@@ -48,10 +48,12 @@ export const getAllUsers = async () => {
 // Створення форми
 export const addData = async (data) => {
     try {
-        const response = await setDoc(
-            doc(db, "form", `${data.telephone}`),
-            data
-        );
+        const response = await setDoc(doc(db, "form", `${data.telephone}`), {
+            data: {
+                ...data,
+                date: Timestamp.now(),
+            },
+        });
         return response;
     } catch (error) {
         throw new Error("Error add document:", error);

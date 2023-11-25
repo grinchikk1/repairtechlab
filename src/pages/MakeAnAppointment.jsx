@@ -1,37 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Typography, Button, TextField, Box } from "@mui/material";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { addData } from "../api/firebaseFetch";
 import CustomSnackbar from "../components/CustomSnackBar";
+import { Context } from "../context/AuthContext";
+
+const validationSchema = Yup.object().shape({
+    username: Yup.string().required("Поле обовʼязкове"),
+    email: Yup.string()
+        .email("Не вірний формат пошти")
+        .required("Поле обовʼязкове"),
+    textField: Yup.string().required("Поле обовʼязкове"),
+});
 
 export default function MakeAnAppointment() {
-    const [username, setUsername] = useState("");
-    const [phone, setPhone] = useState("");
-    const [textField, setTextField] = useState("");
-
     const [titleText, setTitleText] = useState("");
     const [text, setText] = useState("");
     const [severity, setSeverity] = useState("success");
 
     const [showSnackBar, setShowSnackBar] = useState(false);
 
-    const handleAddData = async (event) => {
-        event.preventDefault();
-        const data = { name: username, telephone: phone, textField };
-        await addData(data);
-        setPhone("");
-        setUsername("");
-        setTextField("");
+    const { user } = useContext(Context);
 
-        setTitleText("Вітаємо");
-        setText("Форма успішно відправлена");
-        setSeverity("success");
-        setShowSnackBar(true);
-    };
+    const formik = useFormik({
+        initialValues: {
+            username: "",
+            email: user ? user.email : "",
+            textField: "",
+        },
+        validationSchema,
+        onSubmit: async (values, { resetForm }) => {
+            const data = {
+                name: values.username,
+                email: values.email,
+                textField: values.textField,
+            };
+            await addData(data);
+
+            setTitleText("Вітаємо");
+            setText("Форма успішно відправлена");
+            setSeverity("success");
+            setShowSnackBar(true);
+
+            resetForm();
+        },
+    });
 
     return (
         <Box
             component="form"
-            onSubmit={handleAddData}
+            onSubmit={formik.handleSubmit}
             sx={{
                 margin: "0 auto",
                 display: "flex",
@@ -50,33 +69,64 @@ export default function MakeAnAppointment() {
             </Typography>
             <TextField
                 variant="outlined"
-                type="tel"
-                id="username"
-                value={username}
-                autoComplete="username"
-                onChange={(event) => setUsername(event.target.value)}
+                type="text"
+                name="username"
+                value={formik.values.username}
+                autoComplete="given-name"
+                error={
+                    (formik.touched.username || formik.submitCount > 0) &&
+                    Boolean(formik.errors.username)
+                }
+                helperText={
+                    formik.touched.username || formik.submitCount > 0
+                        ? formik.errors.username || "\u200b"
+                        : " "
+                }
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
             />
             <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
-                Номер телефону
+                Вкажіть Пошту
             </Typography>
             <TextField
-                type="text"
-                id="phone"
-                value={phone}
+                type="email"
+                name="email"
+                value={formik.values.email}
                 variant="outlined"
-                autoComplete="phone"
-                onChange={(event) => setPhone(event.target.value)}
+                autoComplete="email"
+                error={
+                    (formik.touched.email || formik.submitCount > 0) &&
+                    Boolean(formik.errors.email)
+                }
+                helperText={
+                    formik.touched.email || formik.submitCount > 0
+                        ? formik.errors.email || "\u200b"
+                        : " "
+                }
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
             />
+
             <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
                 Повідомлення
             </Typography>
             <TextField
-                type="text"
-                id="text"
-                value={textField}
+                multiline
+                name="textField"
+                value={formik.values.textField}
                 variant="outlined"
                 autoComplete="text"
-                onChange={(event) => setTextField(event.target.value)}
+                error={
+                    (formik.touched.textField || formik.submitCount > 0) &&
+                    Boolean(formik.errors.textField)
+                }
+                helperText={
+                    formik.touched.textField || formik.submitCount > 0
+                        ? formik.errors.textField || "\u200b"
+                        : " "
+                }
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
             />
             <Button variant="outlined" type="submit" sx={{ mt: 4, mb: 4 }}>
                 Відправити

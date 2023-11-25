@@ -10,12 +10,25 @@ import {
     IconButton,
     styled,
 } from "@mui/material";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { createUser } from "../api/firebaseFetch";
 import { Context } from "../context/AuthContext";
 import { auth } from "../firebaseConfig";
 import CustomSnackbar from "../components/CustomSnackBar";
+
+const validationSchema = Yup.object().shape({
+    username: Yup.string().required("Поле обовʼязкове"),
+    email: Yup.string()
+        .email("Не вірний формат пошти")
+        .required("Поле обовʼязкове"),
+    password: Yup.string()
+        .min(7, "Password must be between 7 and 30 characters")
+        .max(30, "Password must be between 7 and 30 characters")
+        .required("Поле обовʼязкове"),
+});
 
 const StyledLink = styled(NavLink)({
     textDecoration: "none",
@@ -31,10 +44,6 @@ const StyledLink = styled(NavLink)({
 });
 
 export default function Register() {
-    const [email, setEmail] = useState("");
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-
     const [titleText, setTitleText] = useState("");
     const [text, setText] = useState("");
     const [severity, setSeverity] = useState("success");
@@ -46,36 +55,47 @@ export default function Register() {
 
     const navigate = useNavigate();
 
-    const handleRegister = async (event) => {
-        event.preventDefault();
-        try {
-            const response = await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-            const data = {
-                email: response.user.email,
-                uid: response.user.uid,
-                name: username,
-            };
-            await createUser(data);
+    const formik = useFormik({
+        initialValues: {
+            username: "",
+            email: "",
+            password: "",
+        },
+        validationSchema,
+        onSubmit: async (values, { resetForm }) => {
+            try {
+                const response = await createUserWithEmailAndPassword(
+                    auth,
+                    values.email,
+                    values.password
+                );
 
-            setTitleText("Вітаємо");
-            setText("Успішна реєстрація");
-            setSeverity("success");
-            setShowSnackBar(true);
+                const data = {
+                    email: response.user.email,
+                    uid: response.user.uid,
+                    name: values.username,
+                };
 
-            setTimeout(() => {
-                navigate("/");
-            }, 2000);
-        } catch (error) {
-            setTitleText("Помилка");
-            setText("Ім'я користувача або пароль не вірний");
-            setSeverity("error");
-            setShowSnackBar(true);
-        }
-    };
+                await createUser(data);
+
+                setTitleText("Вітаємо");
+                setText("Успішна реєстрація");
+                setSeverity("success");
+                setShowSnackBar(true);
+
+                setTimeout(() => {
+                    navigate("/");
+                }, 2000);
+            } catch (error) {
+                setTitleText("Помилка");
+                setText("Ім'я користувача або пароль не вірний");
+                setSeverity("error");
+                setShowSnackBar(true);
+            }
+
+            resetForm();
+        },
+    });
 
     useEffect(() => {
         if (user) {
@@ -86,7 +106,7 @@ export default function Register() {
     return (
         <Box
             component="form"
-            onSubmit={handleRegister}
+            onSubmit={formik.handleSubmit}
             sx={{
                 margin: "0 auto",
                 display: "flex",
@@ -101,35 +121,67 @@ export default function Register() {
                 Реєстрація
             </Typography>
             <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
-                Вкажи Імʼя
+                Вкажіть Імʼя
             </Typography>
             <TextField
                 type="text"
                 variant="outlined"
-                value={username}
-                autoComplete="name"
-                onChange={(event) => setUsername(event.target.value)}
+                name="username"
+                value={formik.values.username}
+                autoComplete="given-name"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                    (formik.touched.username || formik.submitCount > 0) &&
+                    Boolean(formik.errors.username)
+                }
+                helperText={
+                    formik.touched.username || formik.submitCount > 0
+                        ? formik.errors.username || "\u200b"
+                        : " "
+                }
             />
             <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
-                Вкажи пошту
+                Вкажіть Пошту
             </Typography>
             <TextField
                 type="email"
                 variant="outlined"
-                value={email}
+                name="email"
+                value={formik.values.email}
                 autoComplete="email"
-                onChange={(event) => setEmail(event.target.value)}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                    (formik.touched.email || formik.submitCount > 0) &&
+                    Boolean(formik.errors.email)
+                }
+                helperText={
+                    formik.touched.email || formik.submitCount > 0
+                        ? formik.errors.email || "\u200b"
+                        : " "
+                }
             />
             <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
-                Придумай пароль
+                Придумайте пароль
             </Typography>
             <TextField
                 type={showPassword ? "text" : "password"}
-                // helperText="Please enter your password"
                 variant="outlined"
-                value={password}
+                name="password"
+                value={formik.values.password}
                 autoComplete="current-password"
-                onChange={(event) => setPassword(event.target.value)}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                    (formik.touched.password || formik.submitCount > 0) &&
+                    Boolean(formik.errors.password)
+                }
+                helperText={
+                    formik.touched.password || formik.submitCount > 0
+                        ? formik.errors.password || "\u200b"
+                        : " "
+                }
                 InputProps={{
                     endAdornment: React.cloneElement(
                         <IconButton
