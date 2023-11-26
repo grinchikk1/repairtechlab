@@ -9,18 +9,12 @@ export default function NotFound() {
             alignItems="center"
             sx={{ p: 10 }}
         >
-            <Typography variant="h1" color="secondary">
-                404
-            </Typography>
-            <Typography variant="h4" color="secondary" sx={{ pb: 2 }}>
+            <Typography variant="h1">404</Typography>
+            <Typography variant="h4" sx={{ pb: 2 }}>
                 Сторінку не знайдено
             </Typography>
             <Button variant="outlined" type="button">
-                <Link
-                    color="secondary"
-                    href="/"
-                    sx={{ textDecoration: "none" }}
-                >
+                <Link color="inherit" href="/" sx={{ textDecoration: "none" }}>
                     Головна сторінка
                 </Link>
             </Button>

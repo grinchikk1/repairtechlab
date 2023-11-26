@@ -1,10 +1,19 @@
-import React, { useState, useContext } from "react";
-import { Typography, Button, TextField, Box } from "@mui/material";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect, useContext } from "react";
+import {
+    Typography,
+    Button,
+    TextField,
+    Box,
+    CircularProgress,
+} from "@mui/material";
 import { useFormik } from "formik";
+import { useSelector, useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { addData } from "../api/firebaseFetch";
 import CustomSnackbar from "../components/CustomSnackBar";
 import { Context } from "../context/AuthContext";
+import { fetchUser } from "../redux/slice/userSlice";
 
 const validationSchema = Yup.object().shape({
     username: Yup.string().required("Поле обовʼязкове"),
@@ -21,12 +30,22 @@ export default function MakeAnAppointment() {
 
     const [showSnackBar, setShowSnackBar] = useState(false);
 
+    const dispatch = useDispatch();
+
+    const { customer, status } = useSelector((state) => state.customer);
     const { user } = useContext(Context);
 
+    useEffect(() => {
+        if (user) {
+            dispatch(fetchUser(user.email));
+        }
+    }, [dispatch, user]);
+
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            username: "",
-            email: user ? user.email : "",
+            username: customer ? customer.name : "",
+            email: customer ? customer.email : "",
             textField: "",
         },
         validationSchema,
@@ -46,6 +65,14 @@ export default function MakeAnAppointment() {
             resetForm();
         },
     });
+
+    if (status === "loading") {
+        return (
+            <Box sx={{ textAlign: "center", mt: 5 }}>
+                <CircularProgress color="secondary" />
+            </Box>
+        );
+    }
 
     return (
         <Box

@@ -7,6 +7,7 @@ import {
     doc,
     collection,
     Timestamp,
+    addDoc,
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
@@ -50,11 +51,9 @@ export const getAllUsers = async () => {
 // Створення форми
 export const addData = async (data) => {
     try {
-        const response = await setDoc(doc(db, "form", `${data.telephone}`), {
-            data: {
-                ...data,
-                date: Timestamp.now(),
-            },
+        const response = await addDoc(collection(db, "form"), {
+            ...data,
+            date: Timestamp.now(),
         });
         return response;
     } catch (error) {
