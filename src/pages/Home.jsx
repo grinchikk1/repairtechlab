@@ -12,15 +12,17 @@ export default function Home() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                color: "white", //
                 justifyContent: "center",
                 fontSize: "60px",
-                pt: 10,
+                height: "calc(100vh - 60px)",
+                background: "url(/mainn.jpeg) center/cover no-repeat",
             }}
         >
             В Розробці
             <Button
                 variant="outlined"
-                sx={{ mt: 2 }}
+                sx={{ mt: 2, borderColor: "white", color: "white" }}
                 onClick={() => navigate("/contact")}
             >
                 Контакти

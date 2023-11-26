@@ -13,9 +13,9 @@ export default function Services() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                height: "calc(100vh - 60px)",
                 justifyContent: "center",
                 fontSize: "60px",
-                pt: 10,
             }}
         >
             В Розробці

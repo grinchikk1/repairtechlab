@@ -107,7 +107,10 @@ export default function Login() {
                 flexDirection: "column",
                 alignContent: "center",
                 justifyContent: "space-evenly",
-                p: 4,
+                height: "calc(100vh - 120px)",
+                pl: 4,
+                pr: 4,
+                pt: 6,
                 maxWidth: "480px",
             }}
         >

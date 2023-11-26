@@ -13,8 +13,8 @@ export default function About() {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
+                height: "calc(100vh - 60px)",
                 fontSize: "60px",
-                pt: 10,
             }}
         >
             В Розробці

@@ -81,10 +81,15 @@ export default function Profile() {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    p: 4,
+                    height: "calc(100vh - 120px)",
+                    pl: 4,
+                    pr: 4,
+                    pt: 6,
                 }}
             >
-                <Typography variant="h4">Профіль користувача</Typography>
+                <Typography variant="h4" sx={{ pt: 2 }}>
+                    Профіль користувача
+                </Typography>
                 <Paper
                     elevation={6}
                     sx={{

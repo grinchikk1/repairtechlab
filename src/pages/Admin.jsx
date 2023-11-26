@@ -22,10 +22,13 @@ export default function Admin() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                p: 4,
+                height: "calc(100vh - 120px)",
+                pl: 4,
+                pr: 4,
+                pt: 6,
             }}
         >
-            <Typography color="secondary" variant="h4" sx={{ pb: 4 }}>
+            <Typography color="secondary" variant="h4" sx={{ pb: 4, pt: 4 }}>
                 Адміністративна сторінка
             </Typography>
             <Button variant="outlined" onClick={handleSignOut} type="button">

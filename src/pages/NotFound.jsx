@@ -6,8 +6,9 @@ export default function NotFound() {
         <Box
             display="flex"
             flexDirection="column"
+            justifyContent="center"
             alignItems="center"
-            sx={{ p: 10 }}
+            sx={{ height: "calc(100vh - 120px)" }}
         >
             <Typography variant="h1">404</Typography>
             <Typography variant="h4" sx={{ pb: 2 }}>

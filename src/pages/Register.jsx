@@ -120,7 +120,11 @@ export default function Register() {
                 flexDirection: "column",
                 alignContent: "center",
                 justifyContent: "space-evenly",
-                p: 4,
+                height: "calc(100vh)",
+                pl: 4,
+                pr: 4,
+                pt: 8,
+                pb: 6,
                 maxWidth: "480px",
             }}
         >

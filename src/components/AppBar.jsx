@@ -62,7 +62,11 @@ export default function PrimaryAppBar() {
     };
 
     return (
-        <AppBar position="static" elevation={1}>
+        <AppBar
+            position="fixed"
+            elevation={1}
+            style={{ background: "rgba(255, 255, 255, 0.7)" }}
+        >
             <Toolbar
                 sx={{
                     height: "60px",
@@ -105,17 +109,8 @@ export default function PrimaryAppBar() {
                         },
                     }}
                 >
-                    {menuLinks.map((link, index) => (
-                        <StyledLink
-                            key={link.id}
-                            to={link.url}
-                            style={{
-                                backgroundColor:
-                                    index === menuLinks.length - 1
-                                        ? "#fff"
-                                        : "initial",
-                            }}
-                        >
+                    {menuLinks.map((link) => (
+                        <StyledLink key={link.id} to={link.url}>
                             {link.text}
                         </StyledLink>
                     ))}
@@ -128,19 +123,14 @@ export default function PrimaryAppBar() {
                         <InstagramIcon sx={{ color: "#141414" }} />
                     </StyledLinkMobile>
                 </IconButton>
-                {user ? (
-                    <IconButton size="small" aria-label="profile">
-                        <StyledLinkMobile to="/profile">
-                            <AccountCircleIcon sx={{ color: "#141414" }} />
-                        </StyledLinkMobile>
-                    </IconButton>
-                ) : (
-                    <IconButton size="small" aria-label="login">
-                        <StyledLinkMobile to="/login">
-                            <AccountCircleIcon sx={{ color: "#141414" }} />
-                        </StyledLinkMobile>
-                    </IconButton>
-                )}
+                <IconButton
+                    size="small"
+                    aria-label={user ? "profile" : "login"}
+                >
+                    <StyledLinkMobile to={user ? "/profile" : "/login"}>
+                        <AccountCircleIcon sx={{ color: "#141414" }} />
+                    </StyledLinkMobile>
+                </IconButton>
                 <Menu
                     id="menu-appbar"
                     anchorEl={anchorEl}

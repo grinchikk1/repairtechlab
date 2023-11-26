@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Typography } from "@mui/material";
+import { Container, Link, Typography } from "@mui/material";
 
 export default function Footer() {
     return (
@@ -21,9 +21,18 @@ export default function Footer() {
             <Typography sx={{ fontSize: { xs: 10, sm: 14, md: 18 } }}>
                 All Rights Reserved
             </Typography>
-            <Typography sx={{ fontSize: { xs: 10, sm: 14, md: 18 } }}>
+
+            <Link
+                color="inherit"
+                sx={{
+                    fontSize: { xs: 10, sm: 14, md: 18 },
+                    textDecoration: "none",
+                }}
+                href="https://linkedin.com/in/dmytro-hrinchenko-5b577a283/"
+                target="_blank"
+            >
                 Developed by Dmytro Hrinchenko
-            </Typography>
+            </Link>
         </Container>
     );
 }
