@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import {
@@ -15,22 +16,26 @@ import {
     ListItemText,
     CircularProgress,
 } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import ChatIcon from "@mui/icons-material/Chat";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { Context } from "../context/AuthContext";
-// import { getUser } from "../api/firebaseFetch";
+import { fetchUser, clearUser } from "../redux/slice/userSlice";
 import { auth } from "../firebaseConfig";
 
 export default function Profile() {
-    const { isAdmin } = useContext(Context);
-    // const [user, setUser] = useState(null);
-    const [isLoad, setIsLoad] = useState(false);
+    const { isAdmin, user } = useContext(Context);
+
+    const { customer, status } = useSelector((state) => state.customer);
+
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSignOut = async () => {
         try {
             await signOut(auth);
+            dispatch(clearUser());
             navigate("/login");
         } catch (error) {
             throw new Error(error.message);
@@ -39,20 +44,11 @@ export default function Profile() {
 
     const handleUpdateProfile = async () => {};
 
-    const fetchUserInfo = async () => {
-        setIsLoad(true);
-        // const res = await getUser("demonchikk7@gmail.com");
-        // setUser(res.data().data);
-        setTimeout(() => {
-            setIsLoad(false);
-        }, 800);
-    };
-
     useEffect(() => {
-        fetchUserInfo();
+        dispatch(fetchUser(user.email));
     }, []);
 
-    if (isLoad) {
+    if (status === "loading") {
         return (
             <Box sx={{ textAlign: "center", mt: 5 }}>
                 <CircularProgress color="secondary" />
@@ -60,91 +56,113 @@ export default function Profile() {
         );
     }
 
-    return (
-        <Container
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                p: 4,
-            }}
-        >
-            <Typography variant="h4">Профіль користувача</Typography>
-            <Paper
-                elevation={6}
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    height: "160px",
-                    minWidth: "320px",
-                    borderRadius: "10px",
-                    overflow: "hidden",
-                    mt: 2,
-                    mb: 2,
-                    p: 2,
-                }}
-            >
-                <Box
-                    sx={{
-                        display: "flex",
-                        gap: 3,
-                    }}
-                >
-                    <Avatar sx={{ width: 83, height: 83 }}>H</Avatar>
-                    <Box>
-                        <Typography variant="h6">Username</Typography>
-                        <Typography variant="h7">
-                            Email
-                            {/* {user && user.email} */}
-                        </Typography>
-                    </Box>
-                </Box>
+    if (status === "failed") {
+        return (
+            <Box sx={{ textAlign: "center", mt: 5 }}>
+                <Typography variant="h4" sx={{ p: 1 }}>
+                    Користувача не знайдено.
+                </Typography>
                 <Button
                     variant="outlined"
                     disableElevation
-                    onClick={handleUpdateProfile}
                     type="button"
+                    onClick={handleSignOut}
                 >
-                    Редагувати профіль
+                    На сторінку логіну
                 </Button>
-            </Paper>
-            <List sx={{ minWidth: "320px", pt: 2 }}>
-                {isAdmin && (
+            </Box>
+        );
+    }
+
+    if (status === "succeeded" && customer)
+        return (
+            <Container
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    p: 4,
+                }}
+            >
+                <Typography variant="h4">Профіль користувача</Typography>
+                <Paper
+                    elevation={6}
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-between",
+                        height: "160px",
+                        minWidth: "320px",
+                        borderRadius: "10px",
+                        overflow: "hidden",
+                        mt: 2,
+                        mb: 2,
+                        p: 2,
+                    }}
+                >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            gap: 3,
+                        }}
+                    >
+                        <Avatar sx={{ width: 83, height: 83 }}>
+                            {customer.name.charAt(0)}
+                        </Avatar>
+                        <Box>
+                            <Typography variant="h6">
+                                {customer.name}
+                            </Typography>
+                            <Typography variant="h7">
+                                {customer.email}
+                            </Typography>
+                        </Box>
+                    </Box>
+                    <Button
+                        variant="outlined"
+                        disableElevation
+                        onClick={handleUpdateProfile}
+                        type="button"
+                    >
+                        Редагувати профіль
+                    </Button>
+                </Paper>
+                <List sx={{ minWidth: "320px", pt: 2 }}>
+                    {isAdmin && (
+                        <ListItem disablePadding>
+                            <ListItemButton
+                                divider
+                                disableGutters
+                                onClick={() => navigate("/admin")}
+                            >
+                                <ListItemIcon>
+                                    <AdminPanelSettingsIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Панель Адміністратора" />
+                            </ListItemButton>
+                        </ListItem>
+                    )}
+                    <ListItem disablePadding>
+                        <ListItemButton divider disableGutters>
+                            <ListItemIcon>
+                                <ChatIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Чат (в розробці)" />
+                        </ListItemButton>
+                    </ListItem>
                     <ListItem disablePadding>
                         <ListItemButton
                             divider
                             disableGutters
-                            onClick={() => navigate("/admin")}
+                            onClick={handleSignOut}
                         >
                             <ListItemIcon>
-                                <AdminPanelSettingsIcon />
+                                <LogoutIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Панель Адміністратора" />
+                            <ListItemText primary="Вийти" />
                         </ListItemButton>
                     </ListItem>
-                )}
-                <ListItem disablePadding>
-                    <ListItemButton divider disableGutters>
-                        <ListItemIcon>
-                            <ChatIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Чат (в розробці)" />
-                    </ListItemButton>
-                </ListItem>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        divider
-                        disableGutters
-                        onClick={handleSignOut}
-                    >
-                        <ListItemIcon>
-                            <LogoutIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Вийти" />
-                    </ListItemButton>
-                </ListItem>
-            </List>
-        </Container>
-    );
+                </List>
+            </Container>
+        );
 }

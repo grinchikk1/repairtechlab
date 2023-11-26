@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useId, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {
@@ -10,11 +10,25 @@ import {
     IconButton,
     styled,
 } from "@mui/material";
+import { useFormik } from "formik";
+import { useDispatch } from "react-redux";
+import * as Yup from "yup";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Context } from "../context/AuthContext";
 import { auth } from "../firebaseConfig";
 import CustomSnackbar from "../components/CustomSnackBar";
+import { fetchUser } from "../redux/slice/userSlice";
+
+const validationSchema = Yup.object().shape({
+    email: Yup.string()
+        .email("Не вірний формат пошти")
+        .required("Поле обовʼязкове"),
+    password: Yup.string()
+        .min(7, "Пароль має містити від 7 до 30 символів")
+        .max(30, "Пароль має містити від 7 до 30 символів")
+        .required("Поле обовʼязкове"),
+});
 
 const StyledLink = styled(NavLink)({
     textDecoration: "none",
@@ -30,9 +44,6 @@ const StyledLink = styled(NavLink)({
 });
 
 export default function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
     const [titleText, setTitleText] = useState("");
     const [text, setText] = useState("");
     const [severity, setSeverity] = useState("success");
@@ -43,28 +54,42 @@ export default function Login() {
     const { user } = useContext(Context);
 
     const navigate = useNavigate();
-    const id = useId();
+    const dispatch = useDispatch();
 
-    const handleSignIn = async (event) => {
-        event.preventDefault();
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            password: "",
+        },
+        validationSchema,
+        onSubmit: async (values, { resetForm }) => {
+            try {
+                await signInWithEmailAndPassword(
+                    auth,
+                    values.email,
+                    values.password
+                );
 
-            setTitleText("Вітаємо");
-            setText("Успішний вхід");
-            setSeverity("success");
-            setShowSnackBar(true);
+                dispatch(fetchUser(values.email));
 
-            setTimeout(() => {
-                navigate("/");
-            }, 2000);
-        } catch (error) {
-            setTitleText("Помилка");
-            setText("Ім'я користувача або пароль не вірний");
-            setSeverity("error");
-            setShowSnackBar(true);
-        }
-    };
+                setTitleText("Вітаємо");
+                setText("Успішний вхід");
+                setSeverity("success");
+                setShowSnackBar(true);
+
+                setTimeout(() => {
+                    navigate("/");
+                }, 2000);
+            } catch (error) {
+                setTitleText("Помилка");
+                setText("Ім'я користувача або пароль не вірний");
+                setSeverity("error");
+                setShowSnackBar(true);
+            }
+
+            resetForm();
+        },
+    });
 
     useEffect(() => {
         if (user) {
@@ -75,7 +100,7 @@ export default function Login() {
     return (
         <Box
             component="form"
-            onSubmit={handleSignIn}
+            onSubmit={formik.handleSubmit}
             sx={{
                 margin: "0 auto",
                 display: "flex",
@@ -95,21 +120,41 @@ export default function Login() {
             <TextField
                 variant="outlined"
                 type="email"
-                id={`email-${id}`}
-                value={email}
+                name="email"
+                value={formik.values.email}
                 autoComplete="email"
-                onChange={(event) => setEmail(event.target.value)}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                    (formik.touched.email || formik.submitCount > 0) &&
+                    Boolean(formik.errors.email)
+                }
+                helperText={
+                    formik.touched.email || formik.submitCount > 0
+                        ? formik.errors.email || "\u200b"
+                        : " "
+                }
             />
             <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
                 Пароль
             </Typography>
             <TextField
                 type={showPassword ? "text" : "password"}
-                id={`password-${id}`}
-                value={password}
+                name="password"
+                value={formik.password}
                 variant="outlined"
                 autoComplete="current-password"
-                onChange={(event) => setPassword(event.target.value)}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                    (formik.touched.password || formik.submitCount > 0) &&
+                    Boolean(formik.errors.password)
+                }
+                helperText={
+                    formik.touched.password || formik.submitCount > 0
+                        ? formik.errors.password || "\u200b"
+                        : " "
+                }
                 InputProps={{
                     endAdornment: (
                         <IconButton

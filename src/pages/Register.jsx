@@ -10,14 +10,15 @@ import {
     IconButton,
     styled,
 } from "@mui/material";
+import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { createUser } from "../api/firebaseFetch";
 import { Context } from "../context/AuthContext";
 import { auth } from "../firebaseConfig";
 import CustomSnackbar from "../components/CustomSnackBar";
+import { registerUser } from "../redux/slice/userSlice";
 
 const validationSchema = Yup.object().shape({
     username: Yup.string().required("Поле обовʼязкове"),
@@ -25,9 +26,12 @@ const validationSchema = Yup.object().shape({
         .email("Не вірний формат пошти")
         .required("Поле обовʼязкове"),
     password: Yup.string()
-        .min(7, "Password must be between 7 and 30 characters")
-        .max(30, "Password must be between 7 and 30 characters")
+        .min(7, "Пароль має містити від 7 до 30 символів")
+        .max(30, "Пароль має містити від 7 до 30 символів")
         .required("Поле обовʼязкове"),
+    confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password"), null], "Паролі не співпадають")
+        .required("Поле обов'язкове"),
 });
 
 const StyledLink = styled(NavLink)({
@@ -50,8 +54,10 @@ export default function Register() {
 
     const [showSnackBar, setShowSnackBar] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const { user } = useContext(Context);
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
@@ -60,6 +66,7 @@ export default function Register() {
             username: "",
             email: "",
             password: "",
+            confirmPassword: "",
         },
         validationSchema,
         onSubmit: async (values, { resetForm }) => {
@@ -76,7 +83,7 @@ export default function Register() {
                     name: values.username,
                 };
 
-                await createUser(data);
+                dispatch(registerUser(data));
 
                 setTitleText("Вітаємо");
                 setText("Успішна реєстрація");
@@ -88,7 +95,7 @@ export default function Register() {
                 }, 2000);
             } catch (error) {
                 setTitleText("Помилка");
-                setText("Ім'я користувача або пароль не вірний");
+                setText("Ім'я користувача, пошта або пароль не вірний");
                 setSeverity("error");
                 setShowSnackBar(true);
             }
@@ -189,6 +196,44 @@ export default function Register() {
                             onClick={() => setShowPassword(!showPassword)}
                         >
                             {showPassword ? (
+                                <VisibilityIcon color="secondary" />
+                            ) : (
+                                <VisibilityOffIcon color="secondary" />
+                            )}
+                        </IconButton>
+                    ),
+                }}
+            />
+            <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
+                Підтвердіть пароль
+            </Typography>
+            <TextField
+                type={showConfirmPassword ? "text" : "password"}
+                variant="outlined"
+                name="confirmPassword"
+                value={formik.values.confirmPassword}
+                autoComplete="new-password"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                    (formik.touched.confirmPassword ||
+                        formik.submitCount > 0) &&
+                    Boolean(formik.errors.confirmPassword)
+                }
+                helperText={
+                    formik.touched.confirmPassword || formik.submitCount > 0
+                        ? formik.errors.confirmPassword || "\u200b"
+                        : " "
+                }
+                InputProps={{
+                    endAdornment: React.cloneElement(
+                        <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={() =>
+                                setShowConfirmPassword(!showConfirmPassword)
+                            }
+                        >
+                            {showConfirmPassword ? (
                                 <VisibilityIcon color="secondary" />
                             ) : (
                                 <VisibilityOffIcon color="secondary" />
