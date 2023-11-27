@@ -14,7 +14,7 @@ root.render(
     <Provider store={store}>
         <ThemeProvider theme={theme}>
             <AuthContext>
-                <Router>
+                <Router basename="/">
                     <App />
                 </Router>
             </AuthContext>
