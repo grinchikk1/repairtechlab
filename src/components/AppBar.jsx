@@ -44,7 +44,7 @@ const menuLinks = [
     { id: "menu-service", text: "Послуги", url: "/services" },
     { id: "menu-about", text: "Про нас", url: "/about" },
     { id: "menu-contact", text: "Контакти", url: "/contact" },
-    { id: "menu-write", text: "Записатися", url: "/make_an_appointment" },
+    { id: "menu-write", text: "Питання", url: "/make_an_appointment" },
 ];
 
 export default function PrimaryAppBar() {
@@ -115,7 +115,11 @@ export default function PrimaryAppBar() {
                         </StyledLink>
                     ))}
                 </Box>
-                <IconButton size="small" aria-label="instagram profile">
+                <IconButton
+                    disableRipple
+                    size="small"
+                    aria-label="instagram profile"
+                >
                     <StyledLinkMobile
                         to="https://www.instagram.com/repairtechlab/"
                         target="_blank"
@@ -124,6 +128,7 @@ export default function PrimaryAppBar() {
                     </StyledLinkMobile>
                 </IconButton>
                 <IconButton
+                    disableRipple
                     size="small"
                     aria-label={user ? "profile" : "login"}
                 >

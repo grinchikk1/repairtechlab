@@ -68,7 +68,7 @@ export default function MakeAnAppointment() {
 
     if (status === "loading") {
         return (
-            <Box sx={{ textAlign: "center", mt: 5 }}>
+            <Box sx={{ textAlign: "center", mt: 8 }}>
                 <CircularProgress color="secondary" />
             </Box>
         );
@@ -87,7 +87,8 @@ export default function MakeAnAppointment() {
                 height: "calc(100vh - 120px)",
                 pl: 4,
                 pr: 4,
-                pt: 6,
+                pt: 10,
+                pb: 4,
                 maxWidth: "480px",
             }}
         >

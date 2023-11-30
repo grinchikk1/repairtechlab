@@ -50,7 +50,7 @@ export default function Profile() {
 
     if (status === "loading") {
         return (
-            <Box sx={{ textAlign: "center", mt: 5 }}>
+            <Box sx={{ textAlign: "center", mt: 8 }}>
                 <CircularProgress color="secondary" />
             </Box>
         );
@@ -81,13 +81,16 @@ export default function Profile() {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    height: "calc(100vh - 120px)",
                     pl: 4,
                     pr: 4,
-                    pt: 6,
+                    pt: 10,
+                    pb: 4,
                 }}
             >
-                <Typography variant="h4" sx={{ pt: 2 }}>
+                <Typography
+                    variant="h4"
+                    sx={{ pt: 2, fontSize: { xs: 20, md: 30 } }}
+                >
                     Профіль користувача
                 </Typography>
                 <Paper

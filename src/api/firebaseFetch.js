@@ -61,6 +61,22 @@ export const addData = async (data) => {
     }
 };
 
+// Отримання всіх даних форми
+export const getData = async () => {
+    try {
+        const querySnapshot = await getDocs(collection(db, "form"));
+
+        const formData = querySnapshot.docs.map((docForm) => ({
+            id: docForm.id,
+            data: docForm.data(),
+        }));
+
+        return formData;
+    } catch (error) {
+        throw new Error("Error get User:", error);
+    }
+};
+
 // Оновлення форми
 export const updateData = async (id, data) => {
     try {
