@@ -1,17 +1,12 @@
 // userSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { addData, getData, deleteData } from "../../api/firebaseFetch";
+import { getData, deleteData } from "../../api/firebaseFetch";
 
 const initialState = {
-    form: null,
+    form: [],
     status: "idle",
     error: null,
 };
-
-export const addForm = createAsyncThunk("form/addForm", async (formData) => {
-    const response = await addData(formData);
-    return response;
-});
 
 export const getForm = createAsyncThunk("form/getForm", async () => {
     const response = await getData();
@@ -38,22 +33,11 @@ const formSlice = createSlice({
     initialState,
     reducers: {
         clearForm: (state) => {
-            state.form = null;
+            state.form = [];
         },
     },
     extraReducers: (builder) => {
         builder
-            .addCase(addForm.pending, (state) => {
-                state.status = "loading";
-            })
-            .addCase(addForm.fulfilled, (state, action) => {
-                state.status = "succeeded";
-                state.form = action.payload;
-            })
-            .addCase(addForm.rejected, (state, action) => {
-                state.status = "failed";
-                state.error = action.error.message;
-            })
             .addCase(getForm.pending, (state) => {
                 state.status = "loading";
             })
@@ -70,7 +54,6 @@ const formSlice = createSlice({
             })
             .addCase(deleteForm.fulfilled, (state, action) => {
                 state.status = "succeeded";
-                // Remove the deleted form from the state
                 state.form = state.form.filter(
                     (form) => form.id !== action.payload
                 );

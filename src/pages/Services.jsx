@@ -14,14 +14,17 @@ export default function Services() {
                 flexDirection: "column",
                 alignItems: "center",
                 height: "calc(100vh - 60px)",
+                color: "white", //
                 justifyContent: "center",
                 fontSize: "60px",
+                background: "url(/mainn.jpeg) center/cover no-repeat",
+                backgroundAttachment: "fixed",
             }}
         >
             В Розробці
             <Button
                 variant="outlined"
-                sx={{ mt: 2 }}
+                sx={{ mt: 2, color: "#fff" }}
                 onClick={() => navigate("/contact")}
             >
                 Контакти
