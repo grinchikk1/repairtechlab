@@ -58,7 +58,7 @@ export default function Profile() {
 
     if (status === "failed") {
         return (
-            <Box sx={{ textAlign: "center", mt: 5 }}>
+            <Box sx={{ textAlign: "center", mt: 8 }}>
                 <Typography variant="h4" sx={{ p: 1 }}>
                     Користувача не знайдено.
                 </Typography>

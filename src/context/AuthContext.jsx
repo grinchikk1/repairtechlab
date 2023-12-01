@@ -8,6 +8,7 @@ export default function AuthContext({ children }) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const userUid = process.env.REACT_APP_FIREBASE_UID_ADMIN;
+    const userUid2 = process.env.REACT_APP_FIREBASE_UID_ADMIN2;
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -23,8 +24,8 @@ export default function AuthContext({ children }) {
     }, []);
 
     const isAdmin = useMemo(
-        () => user && user.uid === userUid,
-        [user, userUid]
+        () => user && (user.uid === userUid || user.uid === userUid2),
+        [user, userUid, userUid2]
     );
 
     const contextValue = useMemo(
