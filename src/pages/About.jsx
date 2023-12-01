@@ -14,13 +14,16 @@ export default function About() {
                 alignItems: "center",
                 justifyContent: "center",
                 height: "calc(100vh - 60px)",
+                color: "white", //
                 fontSize: "60px",
+                background: "url(/mainnn.jpeg) center/cover no-repeat",
+                backgroundAttachment: "fixed",
             }}
         >
             В Розробці
             <Button
                 variant="outlined"
-                sx={{ mt: 2 }}
+                sx={{ mt: 2, color: "white" }}
                 onClick={() => navigate("/contact")}
             >
                 Контакти
