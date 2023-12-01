@@ -6,6 +6,9 @@ import {
     IconButton,
     CardContent,
     Card,
+    AccordionDetails,
+    AccordionSummary,
+    Accordion,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -13,7 +16,6 @@ import { getData, deleteData } from "../api/firebaseFetch";
 
 export default function Admin() {
     const [form, setForm] = useState("");
-    const [expandedTextId, setExpandedTextId] = useState(null);
 
     useEffect(() => {
         const gget = async () => {
@@ -32,10 +34,6 @@ export default function Admin() {
             await deleteData(id);
             setForm((prevForm) => prevForm.filter((card) => card.id !== id));
         }
-    };
-
-    const handleToggleText = (id) => {
-        setExpandedTextId((prevId) => (prevId === id ? null : id));
     };
 
     return (
@@ -75,7 +73,6 @@ export default function Admin() {
                                     display: "flex",
                                     position: "relative",
                                     flexDirection: "column",
-                                    overflowY: "auto",
                                     pt: 4,
                                     gap: 2,
                                 }}
@@ -86,23 +83,30 @@ export default function Admin() {
                                 <Typography level="title-md">
                                     <b>Пошта: </b> {card.data.email}
                                 </Typography>
-                                <Box
+                                <Accordion
+                                    elevation={0}
                                     sx={{
-                                        whiteSpace: "pre-line",
-                                        pr: 2,
-                                        maxHeight:
-                                            expandedTextId === card.id
-                                                ? "none"
-                                                : "1.2em",
-                                        overflowY:
-                                            expandedTextId === card.id
-                                                ? "auto"
-                                                : "hidden",
+                                        ".MuiAccordionSummary-content.Mui-expanded":
+                                            { margin: 0 },
+                                        ".MuiAccordionSummary-root.Mui-expanded":
+                                            { minHeight: 0 },
                                     }}
                                 >
-                                    <b>Текст: </b>
-                                    {card.data.textField}
-                                </Box>
+                                    <AccordionSummary
+                                        expandIcon={<ExpandMoreIcon />}
+                                        aria-controls="text-content"
+                                        sx={{
+                                            p: 0,
+                                        }}
+                                    >
+                                        <Typography>Повідомлення</Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        <Typography>
+                                            {card.data.textField}
+                                        </Typography>
+                                    </AccordionDetails>
+                                </Accordion>
                                 <IconButton
                                     onClick={() => handleDelete(card.id)}
                                     disableRipple
@@ -115,32 +119,6 @@ export default function Admin() {
                                     }}
                                 >
                                     <ClearIcon color="error" />
-                                </IconButton>
-                                <IconButton
-                                    onClick={() => handleToggleText(card.id)}
-                                    disableRipple
-                                    sx={{
-                                        position: "absolute",
-                                        top: 120,
-                                        right: "8px",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    <ExpandMoreIcon
-                                        fontSize="small"
-                                        sx={{
-                                            color:
-                                                expandedTextId === card.id
-                                                    ? "#707070"
-                                                    : "#000",
-                                            transform:
-                                                expandedTextId === card.id
-                                                    ? "rotate(180deg)"
-                                                    : "rotate(0deg)",
-                                            transition:
-                                                "transform 0.2s ease-in-out",
-                                        }}
-                                    />
                                 </IconButton>
                                 <Typography
                                     variant="body1"

@@ -44,7 +44,7 @@ const menuLinks = [
     { id: "menu-service", text: "Послуги", url: "/services" },
     { id: "menu-about", text: "Про нас", url: "/about" },
     { id: "menu-contact", text: "Контакти", url: "/contact" },
-    { id: "menu-write", text: "Питання", url: "/make_an_appointment" },
+    { id: "menu-write", text: "Запис на ремонт", url: "/make_an_appointment" },
 ];
 
 export default function PrimaryAppBar() {

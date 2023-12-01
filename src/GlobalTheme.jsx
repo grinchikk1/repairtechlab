@@ -37,6 +37,23 @@ const theme = createTheme({
                 },
             },
         },
+        MuiGrid: {
+            styleOverrides: {
+                root: {
+                    margin: 0,
+                },
+            },
+        },
+        MuiAccordionSummary: {
+            styleOverrides: {
+                root: {
+                    minHeight: "0",
+                },
+                content: {
+                    margin: 0,
+                },
+            },
+        },
         MuiAppBar: {
             styleOverrides: {
                 root: {
