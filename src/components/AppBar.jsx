@@ -8,12 +8,13 @@ import {
     IconButton,
     Menu,
     MenuItem,
-    Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useTime, useTransform, motion } from "framer-motion";
 import { Context } from "../context/AuthContext";
+import LogoAnim from "./LogoAnim";
 
 const StyledLink = styled(NavLink)({
     fontSize: "18px",
@@ -51,6 +52,8 @@ export default function PrimaryAppBar() {
     const [isOpen, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const { user } = useContext(Context);
+    const time = useTime();
+    const rotate = useTransform(time, [0, 6000], [0, 360], { clamp: false });
 
     const handleClickMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -86,19 +89,24 @@ export default function PrimaryAppBar() {
                 >
                     <MenuIcon />
                 </IconButton>
-                <StyledLinkMobile to="/">
-                    <img src="/logo.png" alt="logo" height="40px" />
-                    <Typography
-                        sx={{
-                            ml: 1,
-                            fontSize: { sm: "20px", md: "28px" },
-                            fontWeight: 700,
-                        }}
-                        color="secondary"
-                    >
-                        Repair Tech Lab
-                    </Typography>
-                </StyledLinkMobile>
+                <motion.div
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                    }}
+                >
+                    <StyledLinkMobile to="/">
+                        <motion.img
+                            src="/logo.png"
+                            alt="logo"
+                            height="40px"
+                            style={{
+                                rotate,
+                            }}
+                        />
+                        <LogoAnim />
+                    </StyledLinkMobile>
+                </motion.div>
                 <Box sx={{ flexGrow: 1 }} />
                 <Box
                     sx={{
