@@ -1,9 +1,9 @@
 import React from "react";
-import { Container, Link, Typography } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 
 export default function Footer() {
     return (
-        <Container
+        <Box
             sx={{
                 display: "flex",
                 alignItems: "center",
@@ -32,6 +32,6 @@ export default function Footer() {
             >
                 Developed by Dmytro Hrinchenko
             </Link>
-        </Container>
+        </Box>
     );
 }
