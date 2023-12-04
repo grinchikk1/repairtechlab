@@ -1,7 +1,7 @@
 import React from "react";
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import ButtonOutline from "../components/ButtonOutline";
 
 export default function Home() {
     const navigate = useNavigate();
@@ -41,27 +41,13 @@ export default function Home() {
                         <br />
                         <i>✓ Будьте завжди на звʼязку.</i>
                     </Typography>
-                    <Typography variant="body1">
+                    <Typography variant="body1" sx={{ mb: 3 }}>
                         Бажаєте зробити запис на ремонт або задати питання?
                     </Typography>
-
-                    <Button
-                        variant="outlined"
-                        sx={{ mt: 2 }}
+                    <ButtonOutline
+                        text="Натисніть"
                         onClick={() => navigate("/make_an_appointment")}
-                    >
-                        <motion.div
-                            whileHover={{ scale: 1.2 }}
-                            whileTap={{ scale: 0.8 }}
-                            transition={{
-                                type: "spring",
-                                stiffness: 400,
-                                damping: 17,
-                            }}
-                        >
-                            Натисніть
-                        </motion.div>
-                    </Button>
+                    />
                 </Grid>
                 <Grid item xs={12} sm={6} sx={{ pr: 3 }}>
                     <img

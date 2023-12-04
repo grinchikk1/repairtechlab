@@ -1,12 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext } from "react";
-import {
-    Typography,
-    Button,
-    TextField,
-    Box,
-    CircularProgress,
-} from "@mui/material";
+import { Typography, TextField, Box, CircularProgress } from "@mui/material";
 import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import * as Yup from "yup";
@@ -14,6 +8,7 @@ import { addData } from "../api/firebaseFetch";
 import CustomSnackbar from "../components/CustomSnackBar";
 import { Context } from "../context/AuthContext";
 import { fetchUser } from "../redux/slice/userSlice";
+import ButtonOutline from "../components/ButtonOutline";
 
 const validationSchema = Yup.object().shape({
     username: Yup.string().required("Поле обовʼязкове"),
@@ -143,6 +138,7 @@ export default function MakeAnAppointment() {
             </Typography>
             <TextField
                 multiline
+                sx={{ mb: 4 }}
                 name="textField"
                 value={formik.values.textField}
                 variant="outlined"
@@ -159,9 +155,7 @@ export default function MakeAnAppointment() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
             />
-            <Button variant="outlined" type="submit" sx={{ mt: 4, mb: 4 }}>
-                Відправити
-            </Button>
+            <ButtonOutline type="submit" text="Відправити" />
             <CustomSnackbar
                 open={showSnackBar}
                 onClose={() => setShowSnackBar(false)}

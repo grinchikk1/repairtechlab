@@ -2,14 +2,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import {
-    Box,
-    Typography,
-    TextField,
-    Button,
-    IconButton,
-    styled,
-} from "@mui/material";
+import { Box, Typography, TextField, IconButton, styled } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -19,6 +12,7 @@ import { Context } from "../context/AuthContext";
 import { auth } from "../firebaseConfig";
 import CustomSnackbar from "../components/CustomSnackBar";
 import { registerUser } from "../redux/slice/userSlice";
+import ButtonOutline from "../components/ButtonOutline";
 
 const validationSchema = Yup.object().shape({
     username: Yup.string().required("Поле обовʼязкове"),
@@ -211,6 +205,7 @@ export default function Register() {
                 Підтвердіть пароль
             </Typography>
             <TextField
+                sx={{ mb: 4 }}
                 type={showConfirmPassword ? "text" : "password"}
                 variant="outlined"
                 name="confirmPassword"
@@ -245,13 +240,11 @@ export default function Register() {
                     ),
                 }}
             />
-            <Button variant="outlined" type="submit" sx={{ mt: 4, mb: 4 }}>
-                Зареєструватися
-            </Button>
+            <ButtonOutline text="Зареєструватися" type="submit" />
             <Typography
                 variant="body1"
                 fontSize={20}
-                sx={{ textAlign: "center" }}
+                sx={{ textAlign: "center", mt: 4 }}
             >
                 Вже маєте акаунт? <StyledLink to="/login">Увійти</StyledLink>
             </Typography>

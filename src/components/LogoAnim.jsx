@@ -11,7 +11,7 @@ export default function LogoAnim() {
             sx={{
                 display: "flex",
                 ml: 1,
-                fontSize: { sm: "20px", md: "28px" },
+                fontSize: { xs: "20px", md: "28px" },
                 fontWeight: 700,
             }}
             color="secondary"

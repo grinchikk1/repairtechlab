@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import {
     Container,
-    Button,
     Typography,
     Paper,
     Avatar,
@@ -23,6 +22,7 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { Context } from "../context/AuthContext";
 import { fetchUser, clearUser } from "../redux/slice/userSlice";
 import { auth } from "../firebaseConfig";
+import ButtonOutline from "../components/ButtonOutline";
 
 export default function Profile() {
     const { isAdmin, user } = useContext(Context);
@@ -62,14 +62,10 @@ export default function Profile() {
                 <Typography variant="h4" sx={{ p: 1 }}>
                     Користувача не знайдено.
                 </Typography>
-                <Button
-                    variant="outlined"
-                    disableElevation
-                    type="button"
+                <ButtonOutline
+                    text="На сторінку логіну"
                     onClick={handleSignOut}
-                >
-                    На сторінку логіну
-                </Button>
+                />
             </Box>
         );
     }
@@ -126,14 +122,10 @@ export default function Profile() {
                             </Typography>
                         </Box>
                     </Box>
-                    <Button
-                        variant="outlined"
-                        disableElevation
+                    <ButtonOutline
                         onClick={handleUpdateProfile}
-                        type="button"
-                    >
-                        Редагувати профіль
-                    </Button>
+                        text="Редагувати профіль"
+                    />
                 </Paper>
                 <List sx={{ minWidth: "320px", pt: 2 }}>
                     {isAdmin && (

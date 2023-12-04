@@ -1,7 +1,7 @@
-import { Container, Button } from "@mui/material";
-
-import { useNavigate } from "react-router-dom";
 import React from "react";
+import { Container } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import ButtonOutline from "../components/ButtonOutline";
 
 export default function Services() {
     const navigate = useNavigate();
@@ -19,16 +19,15 @@ export default function Services() {
                 fontSize: "60px",
                 background: "url(/mainn.jpeg) center/cover no-repeat",
                 backgroundAttachment: "fixed",
+                gap: 2,
             }}
         >
             В Розробці
-            <Button
-                variant="outlined"
-                sx={{ mt: 2, color: "#fff" }}
+            <ButtonOutline
+                color="#fff"
+                text="Контакти"
                 onClick={() => navigate("/contact")}
-            >
-                Контакти
-            </Button>
+            />
         </Container>
     );
 }

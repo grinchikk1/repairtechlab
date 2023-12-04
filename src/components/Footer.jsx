@@ -4,7 +4,6 @@ import { Container, Link, Typography } from "@mui/material";
 export default function Footer() {
     return (
         <Container
-            maxWidth="xl"
             sx={{
                 display: "flex",
                 alignItems: "center",

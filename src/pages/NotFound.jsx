@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Typography, Button, Link } from "@mui/material";
+import { Box, Typography, Link } from "@mui/material";
+import ButtonOutline from "../components/ButtonOutline";
 
 export default function NotFound() {
     return (
@@ -14,11 +15,17 @@ export default function NotFound() {
             <Typography variant="h4" sx={{ pb: 2 }}>
                 Сторінку не знайдено
             </Typography>
-            <Button variant="outlined" type="button">
-                <Link color="inherit" href="/" sx={{ textDecoration: "none" }}>
-                    Головна сторінка
-                </Link>
-            </Button>
+            <ButtonOutline
+                text={
+                    <Link
+                        color="inherit"
+                        href="/"
+                        sx={{ textDecoration: "none" }}
+                    >
+                        Головна сторінка
+                    </Link>
+                }
+            />
         </Box>
     );
 }

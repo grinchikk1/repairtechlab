@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Button } from "@mui/material";
+import { Container } from "@mui/material";
+import ButtonOutline from "../components/ButtonOutline";
 
 export default function About() {
     const navigate = useNavigate();
@@ -18,16 +19,15 @@ export default function About() {
                 fontSize: "60px",
                 background: "url(/mainnn.jpeg) center/cover no-repeat",
                 backgroundAttachment: "fixed",
+                gap: 2,
             }}
         >
             В Розробці
-            <Button
-                variant="outlined"
-                sx={{ mt: 2, color: "white" }}
+            <ButtonOutline
+                color="#fff"
+                text="Контакти"
                 onClick={() => navigate("/contact")}
-            >
-                Контакти
-            </Button>
+            />
         </Container>
     );
 }

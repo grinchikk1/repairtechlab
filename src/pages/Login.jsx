@@ -2,14 +2,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import {
-    Box,
-    Typography,
-    TextField,
-    Button,
-    IconButton,
-    styled,
-} from "@mui/material";
+import { Box, Typography, TextField, IconButton, styled } from "@mui/material";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
@@ -19,6 +12,7 @@ import { Context } from "../context/AuthContext";
 import { auth } from "../firebaseConfig";
 import CustomSnackbar from "../components/CustomSnackBar";
 import { fetchUser } from "../redux/slice/userSlice";
+import ButtonOutline from "../components/ButtonOutline";
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -142,6 +136,7 @@ export default function Login() {
                 Пароль
             </Typography>
             <TextField
+                sx={{ mb: 4 }}
                 type={showPassword ? "text" : "password"}
                 name="password"
                 value={formik.password}
@@ -173,13 +168,11 @@ export default function Login() {
                     ),
                 }}
             />
-            <Button variant="outlined" type="submit" sx={{ mt: 4, mb: 4 }}>
-                Увійти
-            </Button>
+            <ButtonOutline text="Увійти" type="submit" sx={{ mt: 4, mb: 4 }} />
             <Typography
                 variant="body1"
                 fontSize={20}
-                sx={{ textAlign: "center" }}
+                sx={{ textAlign: "center", mt: 4 }}
             >
                 Немає акаунту?
                 <StyledLink to="/register">Зареєструватися</StyledLink>
