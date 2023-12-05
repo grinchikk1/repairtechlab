@@ -97,6 +97,9 @@ export default function Admin() {
                                     <Typography level="title-md">
                                         <b>Пошта: </b> {card.data.email}
                                     </Typography>
+                                    <Typography level="title-md">
+                                        <b>Телефон: </b> {card.data.phone}
+                                    </Typography>
                                     <Accordion
                                         elevation={0}
                                         sx={{

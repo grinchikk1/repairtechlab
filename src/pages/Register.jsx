@@ -19,6 +19,9 @@ const validationSchema = Yup.object().shape({
     email: Yup.string()
         .email("Не вірний формат пошти")
         .required("Поле обовʼязкове"),
+    phone: Yup.string()
+        .matches(/^\+?3?8?(0\d{9})$/, "Не вірний формат телефону")
+        .required("Поле обовʼязкове"),
     password: Yup.string()
         .min(7, "Пароль має містити від 7 до 30 символів")
         .max(30, "Пароль має містити від 7 до 30 символів")
@@ -59,6 +62,7 @@ export default function Register() {
         initialValues: {
             username: "",
             email: "",
+            phone: "",
             password: "",
             confirmPassword: "",
         },
@@ -75,6 +79,7 @@ export default function Register() {
                     email: response.user.email,
                     uid: response.user.uid,
                     name: values.username,
+                    phone: values.phone,
                 };
 
                 dispatch(registerUser(data));
@@ -163,6 +168,27 @@ export default function Register() {
                 helperText={
                     formik.touched.email || formik.submitCount > 0
                         ? formik.errors.email || "\u200b"
+                        : " "
+                }
+            />
+            <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
+                Вкажіть Номер Телефону
+            </Typography>
+            <TextField
+                type="tel"
+                variant="outlined"
+                name="phone"
+                value={formik.values.phone}
+                autoComplete="phone"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                    (formik.touched.phone || formik.submitCount > 0) &&
+                    Boolean(formik.errors.phone)
+                }
+                helperText={
+                    formik.touched.phone || formik.submitCount > 0
+                        ? formik.errors.phone || "\u200b"
                         : " "
                 }
             />

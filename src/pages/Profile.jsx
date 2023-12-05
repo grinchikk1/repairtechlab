@@ -85,7 +85,7 @@ export default function Profile() {
             >
                 <Typography
                     variant="h4"
-                    sx={{ pt: 2, fontSize: { xs: 20, md: 30 } }}
+                    sx={{ pt: 2, fontSize: { xs: 26, md: 36 } }}
                 >
                     Профіль користувача
                 </Typography>
@@ -114,11 +114,14 @@ export default function Profile() {
                             {customer.name.charAt(0)}
                         </Avatar>
                         <Box>
-                            <Typography variant="h6">
+                            <Typography variant="h5">
                                 {customer.name}
                             </Typography>
-                            <Typography variant="h7">
+                            <Typography variant="h6">
                                 {customer.email}
+                            </Typography>
+                            <Typography variant="h6">
+                                {customer.phone}
                             </Typography>
                         </Box>
                     </Box>

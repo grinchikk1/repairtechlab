@@ -66,7 +66,6 @@ export default function PrimaryAppBar() {
 
     return (
         <AppBar
-            position="fixed"
             elevation={1}
             style={{ background: "rgba(255, 255, 255, 0.7)" }}
         >

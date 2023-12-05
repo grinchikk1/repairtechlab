@@ -12,6 +12,9 @@ import ButtonOutline from "../components/ButtonOutline";
 
 const validationSchema = Yup.object().shape({
     username: Yup.string().required("Поле обовʼязкове"),
+    phone: Yup.string()
+        .matches(/^\+?3?8?(0\d{9})$/, "Не вірний формат телефону")
+        .required("Поле обовʼязкове"),
     email: Yup.string()
         .email("Не вірний формат пошти")
         .required("Поле обовʼязкове"),
@@ -41,6 +44,7 @@ export default function MakeAnAppointment() {
         initialValues: {
             username: customer ? customer.name : "",
             email: customer ? customer.email : "",
+            phone: customer ? customer.phone : "",
             textField: "",
         },
         validationSchema,
@@ -48,6 +52,7 @@ export default function MakeAnAppointment() {
             const data = {
                 name: values.username,
                 email: values.email,
+                phone: values.phone,
                 textField: values.textField,
             };
             await addData(data);
@@ -79,7 +84,6 @@ export default function MakeAnAppointment() {
                 flexDirection: "column",
                 alignContent: "center",
                 justifyContent: "space-evenly",
-                height: "calc(100vh - 120px)",
                 pl: 4,
                 pr: 4,
                 pt: 10,
@@ -132,7 +136,27 @@ export default function MakeAnAppointment() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
             />
-
+            <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
+                Вкажіть Номер Телефону
+            </Typography>
+            <TextField
+                type="tel"
+                name="phone"
+                value={formik.values.phone}
+                variant="outlined"
+                autoComplete="phone"
+                error={
+                    (formik.touched.phone || formik.submitCount > 0) &&
+                    Boolean(formik.errors.phone)
+                }
+                helperText={
+                    formik.touched.phone || formik.submitCount > 0
+                        ? formik.errors.phone || "\u200b"
+                        : " "
+                }
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+            />
             <Typography variant="h6" color="primary" sx={{ pt: 3, pb: 1 }}>
                 Повідомлення
             </Typography>

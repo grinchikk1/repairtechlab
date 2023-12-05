@@ -19,7 +19,6 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 function App() {
     return (
         <Box
-            maxWidth="xl"
             sx={{
                 display: "flex",
                 flexDirection: "column",
