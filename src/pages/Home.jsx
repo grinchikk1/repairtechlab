@@ -1,35 +1,68 @@
 import React from "react";
-import { Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ButtonOutline from "../components/ButtonOutline";
 
-export default function Home() {
+const videoStyles = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 1,
+    width: "100%",
+    height: "100vh",
+    objectFit: "cover",
+};
+
+const overlayStyles = {
+    position: "absolute",
+    objectFit: "cover",
+    top: 0,
+    left: 0,
+    zIndex: 2,
+    width: "100%",
+    height: "100vh",
+    backgroundColor: "rgba(0,0,0,0.6)",
+};
+
+const textContainerStyles = {
+    zIndex: 2,
+    color: "#fff",
+    textAlign: "center",
+};
+
+function Home() {
     const navigate = useNavigate();
+
     return (
-        <Container
-            disableGutters
-            maxWidth="xl"
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                pt: 10,
-                pb: 2,
-            }}
-        >
-            <Typography variant="h1" sx={{ fontSize: { xs: 26, md: 36 } }}>
-                Ремонт техніки Apple
-            </Typography>
-            <Grid
-                container
-                spacing={3}
+        <Container disableGutters maxWidth="xl">
+            <video
+                src="./BG_video_fire_laptop.mp4"
+                type="video/mp4"
+                autoPlay
+                muted
+                loop
+                style={videoStyles}
+            />
+            <Box
                 sx={{
-                    pt: 1,
+                    height: "100vh",
                     width: "100%",
+                    overflow: "hidden",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: "relative",
                 }}
             >
-                <Grid item xs={12} sm={6} sx={{ pr: 3 }}>
-                    <Typography variant="h6">
+                <Box sx={overlayStyles} />
+                <Box sx={textContainerStyles}>
+                    <Typography
+                        variant="h1"
+                        sx={{ fontSize: { xs: 26, md: 36 } }}
+                    >
+                        Ремонт техніки Apple
+                    </Typography>
+                    <Typography variant="h6" sx={{ pt: 3, pb: 3 }}>
                         <b>Repair Tech Lab</b> – сервісний центр у самому центрі
                         міста Києва. Наша мета – бути найкращими у сфері
                         сервісного обслуговування.
@@ -46,22 +79,13 @@ export default function Home() {
                     </Typography>
                     <ButtonOutline
                         text="Натисніть"
+                        color="#fff"
                         onClick={() => navigate("/make_an_appointment")}
                     />
-                </Grid>
-                <Grid item xs={12} sm={6} sx={{ pr: 3 }}>
-                    <img
-                        src="../iphone15-pro-64.webp"
-                        alt="title-img-iphone"
-                        width="100%"
-                        height="100%"
-                        style={{
-                            borderRadius: "12px",
-                            objectFit: "center",
-                        }}
-                    />
-                </Grid>
-            </Grid>
+                </Box>
+            </Box>
         </Container>
     );
 }
+
+export default Home;
