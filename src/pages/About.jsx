@@ -15,7 +15,7 @@ export default function About() {
                 alignItems: "center",
                 justifyContent: "center",
                 height: "calc(100vh - 60px)",
-                color: "white", //
+                color: "white",
                 fontSize: "60px",
                 background: "url(/mainnn.jpeg) center/cover no-repeat",
                 backgroundAttachment: "fixed",

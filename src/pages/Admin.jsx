@@ -57,7 +57,6 @@ export default function Admin() {
                     flexDirection: "column",
                     alignItems: "center",
                     p: 4,
-                    pt: 6,
                 }}
             >
                 <Typography

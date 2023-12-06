@@ -14,7 +14,7 @@ export default function Services() {
                 flexDirection: "column",
                 alignItems: "center",
                 height: "calc(100vh - 60px)",
-                color: "white", //
+                color: "white",
                 justifyContent: "center",
                 fontSize: "60px",
                 background: "url(/mainn.jpeg) center/cover no-repeat",

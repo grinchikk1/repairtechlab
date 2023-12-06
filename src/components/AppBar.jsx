@@ -65,15 +65,8 @@ export default function PrimaryAppBar() {
     };
 
     return (
-        <AppBar
-            elevation={1}
-            style={{ background: "rgba(255, 255, 255, 0.7)" }}
-        >
-            <Toolbar
-                sx={{
-                    height: "60px",
-                }}
-            >
+        <AppBar elevation={0} position="sticky">
+            <Toolbar>
                 <IconButton
                     size="small"
                     edge="start"

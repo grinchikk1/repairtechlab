@@ -19,6 +19,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 function App() {
     return (
         <Box
+            maxWidth="xl"
             sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -31,7 +32,8 @@ function App() {
                 disableGutters
                 maxWidth="xl"
                 sx={{
-                    flex: "1",
+                    flex: 1,
+                    backgroundColor: "rgb(255, 255, 255)",
                 }}
             >
                 <Suspense

@@ -10,7 +10,6 @@ export default function Contact() {
         <Box
             sx={{
                 p: 4,
-                pt: 10,
                 textAlign: "center",
             }}
         >

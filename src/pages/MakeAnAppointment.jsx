@@ -84,10 +84,7 @@ export default function MakeAnAppointment() {
                 flexDirection: "column",
                 alignContent: "center",
                 justifyContent: "space-evenly",
-                pl: 4,
-                pr: 4,
-                pt: 10,
-                pb: 4,
+                p: 4,
                 maxWidth: "480px",
             }}
         >

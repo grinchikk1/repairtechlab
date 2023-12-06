@@ -77,10 +77,7 @@ export default function Profile() {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    pl: 4,
-                    pr: 4,
-                    pt: 10,
-                    pb: 4,
+                    p: 4,
                 }}
             >
                 <Typography

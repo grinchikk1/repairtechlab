@@ -21,7 +21,7 @@ const overlayStyles = {
     zIndex: 2,
     width: "100%",
     height: "100vh",
-    backgroundColor: "rgba(0,0,0,0.6)",
+    backgroundColor: "rgba(0,0,0,0.4)",
 };
 
 const textContainerStyles = {
@@ -34,7 +34,7 @@ function Home() {
     const navigate = useNavigate();
 
     return (
-        <Container disableGutters maxWidth="xl">
+        <Container disableGutters maxWidth="xl" sx={{ position: "relative" }}>
             <video
                 src="./BG_video_fire_laptop.mp4"
                 type="video/mp4"
@@ -50,40 +50,42 @@ function Home() {
                     overflow: "hidden",
                     display: "flex",
                     justifyContent: "center",
-                    alignItems: "center",
-                    position: "relative",
                 }}
             >
                 <Box sx={overlayStyles} />
                 <Box sx={textContainerStyles}>
                     <Typography
                         variant="h1"
-                        sx={{ fontSize: { xs: 26, md: 36 } }}
+                        sx={{
+                            fontSize: { xs: 50, md: 100 },
+                            p: 3,
+                            pt: 15,
+                            pb: 15,
+                        }}
                     >
-                        Ремонт техніки Apple
-                    </Typography>
-                    <Typography variant="h6" sx={{ pt: 3, pb: 3 }}>
-                        <b>Repair Tech Lab</b> – сервісний центр у самому центрі
-                        міста Києва. Наша мета – бути найкращими у сфері
-                        сервісного обслуговування.
-                    </Typography>
-                    <Typography variant="h6" sx={{ pt: 3, pb: 3 }}>
-                        <i>✓ Ремонт Iphone, Mac, Ipad, Ipod, AppleWatch.</i>
-                        <br />
-                        <i>✓ MacOS, iOS, watchOS, iPadOS.</i>
-                        <br />
-                        <i>✓ Знижка на всі послуги 5% через запис на сайті.</i>
-                    </Typography>
-                    <Typography variant="body1" sx={{ mb: 3 }}>
-                        Бажаєте зробити запис на ремонт або задати питання?
+                        Ми проведемо діагностику та вилікуємо ваш пристрій
                     </Typography>
                     <ButtonOutline
-                        text="Натисніть"
+                        text="Запис на ремонт"
                         color="#fff"
                         onClick={() => navigate("/make_an_appointment")}
                     />
                 </Box>
             </Box>
+            <Container sx={{ width: "100%" }}>
+                <Typography variant="h5" sx={{ pt: 3, pb: 3 }}>
+                    <b>Repair Tech Lab</b> – сервісний центр у самому центрі
+                    міста Києва. Наша мета – бути найкращими у сфері сервісного
+                    обслуговування.
+                </Typography>
+                <Typography variant="h5" sx={{ pt: 3, pb: 5 }}>
+                    <i>✓ Ремонт Iphone, Mac, Ipad, Ipod, AppleWatch.</i>
+                    <br />
+                    <i>✓ MacOS, iOS, watchOS, iPadOS.</i>
+                    <br />
+                    <i>✓ Знижка на всі послуги 5% через запис на сайті.</i>
+                </Typography>
+            </Container>
         </Container>
     );
 }
