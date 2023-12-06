@@ -72,7 +72,7 @@ function Home() {
                         <br />
                         <i>✓ MacOS, iOS, watchOS, iPadOS.</i>
                         <br />
-                        <i>✓ Будьте завжди на звʼязку.</i>
+                        <i>✓ Знижка на всі послуги 5% через запис на сайті.</i>
                     </Typography>
                     <Typography variant="body1" sx={{ mb: 3 }}>
                         Бажаєте зробити запис на ремонт або задати питання?
