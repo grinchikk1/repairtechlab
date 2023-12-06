@@ -40,7 +40,9 @@ function Home() {
                 type="video/mp4"
                 autoPlay
                 muted
+                controls={false}
                 loop
+                preload="auto"
                 style={videoStyles}
             />
             <Box
