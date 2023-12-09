@@ -46,6 +46,7 @@ export default function MakeAnAppointment() {
             email: customer ? customer.email : "",
             phone: customer ? customer.phone : "",
             textField: "",
+            status: true,
         },
         validationSchema,
         onSubmit: async (values, { resetForm }) => {

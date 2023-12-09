@@ -11,15 +11,15 @@ import {
     Accordion,
     CircularProgress,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import ClearIcon from "@mui/icons-material/Clear";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useDispatch, useSelector } from "react-redux";
-import { getForm, deleteForm } from "../redux/slice/formSlice";
+import { getForm, deleteForm, updateForm } from "../redux/slice/formSlice";
 
 export default function Admin() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const { form, status } = useSelector((state) => state.form);
 
@@ -37,6 +37,10 @@ export default function Admin() {
         }
     };
 
+    const handleStatusChange = (id, data) => {
+        dispatch(updateForm({ id, data }));
+    };
+
     if (status === "loading") {
         return (
             <Box sx={{ textAlign: "center", mt: 8 }}>
@@ -45,9 +49,9 @@ export default function Admin() {
         );
     }
 
-    if (status === "failed") {
-        return navigate("/profile");
-    }
+    // if (status === "failed") {
+    //     return navigate("/profile");
+    // }
 
     if (status === "succeeded" && form)
         return (
@@ -155,6 +159,33 @@ export default function Admin() {
                                             ).toLocaleString()}
                                         </i>
                                     </Typography>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            position: "absolute",
+                                            top: 0,
+                                            left: 150,
+                                            p: 1,
+                                        }}
+                                    >
+                                        <Typography level="title-md">
+                                            {!card.data.status
+                                                ? "Відкрито"
+                                                : "Закрито"}
+                                        </Typography>
+                                        <input
+                                            type="checkbox"
+                                            id={`orderStatus${card.id}`}
+                                            checked={card.data.status}
+                                            onChange={() =>
+                                                handleStatusChange(card.id, {
+                                                    ...card.data,
+                                                    status: !card.data.status,
+                                                })
+                                            }
+                                        />
+                                    </Box>
                                 </CardContent>
                             </Card>
                         ))

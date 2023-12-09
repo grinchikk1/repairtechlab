@@ -1,6 +1,5 @@
-// userSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getData, deleteData } from "../../api/firebaseFetch";
+import { getData, deleteData, updateData } from "../../api/firebaseFetch";
 
 const initialState = {
     form: [],
@@ -28,6 +27,14 @@ export const deleteForm = createAsyncThunk(
     }
 );
 
+export const updateForm = createAsyncThunk(
+    "form/updateForm",
+    async ({ id, data }) => {
+        const res = await updateData(id, data);
+        return res;
+    }
+);
+
 const formSlice = createSlice({
     name: "form",
     initialState,
@@ -46,6 +53,22 @@ const formSlice = createSlice({
                 state.form = action.payload;
             })
             .addCase(getForm.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.error.message;
+            })
+            .addCase(updateForm.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(updateForm.fulfilled, (state, action) => {
+                const { id, data: updatedData } = action.payload;
+                state.status = "succeeded";
+                state.form = state.form.map((formItem) =>
+                    formItem.id === id
+                        ? { ...formItem, data: updatedData }
+                        : formItem
+                );
+            })
+            .addCase(updateForm.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.error.message;
             })

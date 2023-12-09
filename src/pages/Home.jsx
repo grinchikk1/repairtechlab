@@ -35,16 +35,30 @@ function Home() {
 
     return (
         <Container disableGutters maxWidth="xl" sx={{ position: "relative" }}>
-            <video
-                src="./BG_video_fire_laptop.mp4"
-                type="video/mp4"
-                autoPlay
-                muted
-                controls={false}
-                loop
-                preload="auto"
-                style={videoStyles}
+            <Box
+                display={{ xs: "block", md: "none" }}
+                sx={{
+                    background: "url(./Iphone.jpeg) center/cover no-repeat",
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    zIndex: 1,
+                    width: "100%",
+                    height: "100vh",
+                }}
             />
+            <Box display={{ xs: "none", md: "block" }}>
+                <video
+                    src="./BG_video_fire_laptop.mp4"
+                    type="video/mp4"
+                    autoPlay
+                    muted
+                    controls={false}
+                    loop
+                    preload="auto"
+                    style={videoStyles}
+                />
+            </Box>
             <Box
                 sx={{
                     height: "100vh",
@@ -62,10 +76,10 @@ function Home() {
                             fontSize: { xs: 50, md: 100 },
                             p: 3,
                             pt: 15,
-                            pb: 15,
+                            pb: 10,
                         }}
                     >
-                        Ми проведемо діагностику та вилікуємо ваш пристрій
+                        Ми проведемо діагностику та відремонтуємо ваш пристрій
                     </Typography>
                     <ButtonOutline
                         text="Запис на ремонт"

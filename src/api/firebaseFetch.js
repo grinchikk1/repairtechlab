@@ -81,7 +81,9 @@ export const getData = async () => {
 export const updateData = async (id, data) => {
     try {
         const docRef = doc(db, "form", id);
-        await updateDoc(docRef, data);
+        const { date, ...updatedData } = data;
+        await updateDoc(docRef, updatedData);
+        return { id, data };
     } catch (error) {
         throw new Error("Error updating document:", error);
     }

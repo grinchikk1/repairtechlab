@@ -17,11 +17,11 @@ import { Context } from "../context/AuthContext";
 import LogoAnim from "./LogoAnim";
 
 const StyledLink = styled(NavLink)({
-    fontSize: "18px",
+    fontSize: "20px",
     fontWeight: 400,
     textDecoration: "none",
     color: "#000",
-    padding: "10px",
+    padding: "5px",
     margin: "5px",
     borderBottom: "1px solid transparent",
     "&:hover": {
