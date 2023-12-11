@@ -4,6 +4,7 @@ import { Typography, TextField, Box, CircularProgress } from "@mui/material";
 import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import * as Yup from "yup";
+import emailjs from "@emailjs/browser";
 import { addData } from "../api/firebaseFetch";
 import CustomSnackbar from "../components/CustomSnackBar";
 import { Context } from "../context/AuthContext";
@@ -33,6 +34,8 @@ export default function MakeAnAppointment() {
     const { customer, status } = useSelector((state) => state.customer);
     const { user } = useContext(Context);
 
+    emailjs.init(process.env.REACT_APP_GOOGLE_MAIL_API_KEY);
+
     useEffect(() => {
         if (user) {
             dispatch(fetchUser(user.email));
@@ -57,6 +60,12 @@ export default function MakeAnAppointment() {
                 textField: values.textField,
             };
             await addData(data);
+            await emailjs.send(
+                process.env.REACT_APP_GOOGLE_MAIL_API_SERVICE,
+                process.env.REACT_APP_GOOGLE_MAIL_API_TEMPLATE,
+                values,
+                process.env.REACT_APP_GOOGLE_MAIL_API_KEY
+            );
 
             setTitleText("Вітаємо");
             setText("Форма успішно відправлена");

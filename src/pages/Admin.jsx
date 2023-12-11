@@ -10,24 +10,18 @@ import {
     AccordionSummary,
     Accordion,
     CircularProgress,
-    Button,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ClearIcon from "@mui/icons-material/Clear";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useDispatch, useSelector } from "react-redux";
 import { getForm, deleteForm, updateForm } from "../redux/slice/formSlice";
-import sendEmail from "../api/sendEmail";
 
 export default function Admin() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const { form, status } = useSelector((state) => state.form);
-
-    const handleSendEmail = () => {
-        sendEmail();
-    };
 
     useEffect(() => {
         dispatch(getForm());
@@ -201,9 +195,6 @@ export default function Admin() {
                         </Typography>
                     )}
                 </Box>
-                <Button onClick={handleSendEmail} sx={{ p: 1, m: 2 }}>
-                    Send Email
-                </Button>
             </Container>
         );
 }

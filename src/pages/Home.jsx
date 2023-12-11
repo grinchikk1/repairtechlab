@@ -3,16 +3,6 @@ import { Box, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ButtonOutline from "../components/ButtonOutline";
 
-const videoStyles = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    zIndex: 1,
-    width: "100%",
-    height: "100vh",
-    objectFit: "cover",
-};
-
 const overlayStyles = {
     position: "absolute",
     objectFit: "cover",
@@ -36,7 +26,6 @@ function Home() {
     return (
         <Container disableGutters maxWidth="xl" sx={{ position: "relative" }}>
             <Box
-                display={{ xs: "block", md: "none" }}
                 sx={{
                     background: "url(./Iphone.jpeg) center/cover no-repeat",
                     position: "absolute",
@@ -47,18 +36,6 @@ function Home() {
                     height: "100vh",
                 }}
             />
-            <Box display={{ xs: "none", md: "block" }}>
-                <video
-                    src="./BG_video_fire_laptop.mp4"
-                    type="video/mp4"
-                    autoPlay
-                    muted
-                    controls={false}
-                    loop
-                    preload="auto"
-                    style={videoStyles}
-                />
-            </Box>
             <Box
                 sx={{
                     height: "100vh",
