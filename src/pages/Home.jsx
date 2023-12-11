@@ -27,7 +27,7 @@ function Home() {
         <Container disableGutters maxWidth="xl" sx={{ position: "relative" }}>
             <Box
                 sx={{
-                    background: "url(./Iphone.jpeg) center/cover no-repeat",
+                    background: "url(/Iphone.jpeg) center/cover no-repeat",
                     position: "absolute",
                     top: 0,
                     left: 0,
