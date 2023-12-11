@@ -1,70 +1,44 @@
 import React from "react";
-import { Box, Container, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ButtonOutline from "../components/ButtonOutline";
-
-const overlayStyles = {
-    position: "absolute",
-    objectFit: "cover",
-    top: 0,
-    left: 0,
-    zIndex: 2,
-    width: "100%",
-    height: "100vh",
-    backgroundColor: "rgba(0,0,0,0.4)",
-};
-
-const textContainerStyles = {
-    zIndex: 2,
-    color: "#fff",
-    textAlign: "center",
-};
 
 function Home() {
     const navigate = useNavigate();
 
     return (
-        <Container disableGutters maxWidth="xl" sx={{ position: "relative" }}>
-            <Box
+        <Container
+            disableGutters
+            maxWidth="xl"
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "white",
+                fontSize: "60px",
+                background: "url(/Iphone.jpeg) center/cover no-repeat",
+                backgroundAttachment: "fixed",
+                gap: 2,
+            }}
+        >
+            <Typography
+                variant="h1"
                 sx={{
-                    background: "url(/Iphone.jpeg) center/cover no-repeat",
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    zIndex: 1,
-                    width: "100%",
-                    height: "100vh",
-                }}
-            />
-            <Box
-                sx={{
-                    height: "100vh",
-                    width: "100%",
-                    overflow: "hidden",
-                    display: "flex",
-                    justifyContent: "center",
+                    textAlign: "center",
+                    fontSize: { xs: 50, md: 100 },
+                    p: 3,
+                    pt: 15,
+                    pb: 10,
                 }}
             >
-                <Box sx={overlayStyles} />
-                <Box sx={textContainerStyles}>
-                    <Typography
-                        variant="h1"
-                        sx={{
-                            fontSize: { xs: 50, md: 100 },
-                            p: 3,
-                            pt: 15,
-                            pb: 10,
-                        }}
-                    >
-                        Ми проведемо діагностику та відремонтуємо ваш пристрій
-                    </Typography>
-                    <ButtonOutline
-                        text="Запис на ремонт"
-                        color="#fff"
-                        onClick={() => navigate("/make_an_appointment")}
-                    />
-                </Box>
-            </Box>
+                Ми проведемо діагностику та відремонтуємо ваш пристрій
+            </Typography>
+            <ButtonOutline
+                text="Запис на ремонт"
+                color="#fff"
+                onClick={() => navigate("/make_an_appointment")}
+            />
             <Container sx={{ width: "100%" }}>
                 <Typography variant="h5" sx={{ pt: 3, pb: 3 }}>
                     <b>Repair Tech Lab</b> – сервісний центр у самому центрі
