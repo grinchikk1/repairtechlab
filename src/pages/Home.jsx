@@ -50,6 +50,20 @@ function Home() {
                     <br />
                     <i>✓ MacOS, iOS, watchOS, iPadOS.</i>
                     <br />
+                    <i>
+                        ✓ Ремонт Samsung, Xiaomi, Huawei, Lenovo, LG, Meizu,
+                        Sony.
+                    </i>
+                    <br />
+                    <i>
+                        ✓ Ремонт Asus, Nokia, Google, OnePlus, Oppo, Motorola,
+                        ZTE, Realme.
+                    </i>
+                    <br />
+                    <i>✓ Ремонт HP, Dell, Philips.</i>
+                    <br />
+                    <i>✓ Можлива швидка заміна деталей у день звернення.</i>
+                    <br />
                     <i>✓ Знижка на всі послуги 5% через запис на сайті.</i>
                 </Typography>
             </Container>

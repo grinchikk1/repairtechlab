@@ -17,7 +17,7 @@ import { Context } from "../context/AuthContext";
 import LogoAnim from "./LogoAnim";
 
 const StyledLink = styled(NavLink)({
-    fontSize: "20px",
+    fontSize: "18px",
     fontWeight: 400,
     textDecoration: "none",
     color: "#000",
@@ -125,6 +125,26 @@ export default function PrimaryAppBar() {
                         target="_blank"
                     >
                         <InstagramIcon sx={{ color: "#141414" }} />
+                    </StyledLinkMobile>
+                </IconButton>
+                <IconButton
+                    disableRipple
+                    size="small"
+                    aria-label="tiktok profile"
+                >
+                    <StyledLinkMobile
+                        to="https://www.tiktok.com/@repairtechlab"
+                        target="_blank"
+                    >
+                        <img
+                            style={{
+                                color: "#141414",
+                                width: "20px",
+                                height: "20px",
+                            }}
+                            alt=""
+                            src="/tik-tok.png"
+                        />
                     </StyledLinkMobile>
                 </IconButton>
                 <IconButton

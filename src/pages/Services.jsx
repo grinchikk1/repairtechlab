@@ -1,10 +1,7 @@
 import React from "react";
-import { Container } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import ButtonOutline from "../components/ButtonOutline";
+import { Container, Typography } from "@mui/material";
 
-export default function Services() {
-    const navigate = useNavigate();
+export default function About() {
     return (
         <Container
             disableGutters
@@ -13,21 +10,37 @@ export default function Services() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                height: "calc(100vh - 60px)",
-                color: "white",
                 justifyContent: "center",
-                fontSize: "60px",
-                background: "url(/mainn.jpeg) center/cover no-repeat",
-                backgroundAttachment: "fixed",
-                gap: 2,
+                p: 4,
             }}
         >
-            В Розробці
-            <ButtonOutline
-                color="#fff"
-                text="Контакти"
-                onClick={() => navigate("/contact")}
-            />
+            <Typography variant="h5" sx={{ textAlign: "center" }}>
+                Професійний сервісний центр
+            </Typography>
+            <Container disableGutters>
+                <ul>
+                    <Typography variant="h6" sx={{ pb: 1 }}>
+                        Діагностика безкоштовна*
+                    </Typography>
+                    <li style={{ padding: 5 }}>Ремонт електронних книг</li>
+                    <li style={{ padding: 5 }}>Ремонт ноутбуків</li>
+                    <li style={{ padding: 5 }}>Ремонт планшетів</li>
+                    <li style={{ padding: 5 }}>Ремонт смартфонів</li>
+                    <li style={{ padding: 5 }}>Ремонт смарт-годинників</li>
+                    <li style={{ padding: 5 }}>Ремонт моноблоків</li>
+                    <li style={{ padding: 5 }}>Ремонт відеокарт</li>
+                </ul>
+                <Container>
+                    <Typography variant="h6">
+                        - Також у нас можна придбати різні комплектуючі до
+                        вашого гаджета за приємними цінами.
+                    </Typography>
+                    <Typography variant="h6">
+                        - Можлива швидка заміна деталей, якщо вони є в наявності
+                        на складі.
+                    </Typography>
+                </Container>
+            </Container>
         </Container>
     );
 }

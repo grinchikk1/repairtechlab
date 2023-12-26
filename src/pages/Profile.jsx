@@ -147,7 +147,7 @@ export default function Profile() {
                             <ListItemIcon>
                                 <ChatIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Чат (в розробці)" />
+                            <ListItemText primary="Чат" />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>

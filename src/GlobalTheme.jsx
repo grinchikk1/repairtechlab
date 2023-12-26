@@ -96,7 +96,12 @@ const theme = createTheme({
                 },
                 {
                     props: { variant: "text" },
-                    style: { border: "3px solid #707070" },
+                    style: {
+                        borderBottom: "1px solid #000",
+                        borderRadius: "0",
+                        padding: "0",
+                        margin: "0 5px",
+                    },
                 },
             ],
         },
